@@ -28,7 +28,7 @@ class ActivityInstance(Model):
 	# add method to calculate time if needed
 
 class RateActivity(Model):
-	activity = ForeignKey(Activity, related_name="rateActivities", blank=True, null=True)
+	activity = ForeignKey(Activity, related_name="rateActivities", blank=True)
 	name = CharField(max_length=1000, unique=True)
 
 	def __unicode__(self):
@@ -39,7 +39,7 @@ class RateActivity(Model):
 class RateActivityInstance(Model):
 	rating = IntegerField(blank=True)
 	rateActivity = ForeignKey(RateActivity, related_name="rateActivityInstances")
-	activityInstance = OneToOneField(ActivityInstance, related_name="rateActivityInstances")
+	activityInstance = OneToOneField(ActivityInstance, related_name="rateActivityInstances", blank=True)
 
 	def __unicode__(self):
 		return u"%s: %s" % (self.rateActivity, self.rating)

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} Activities {% endblock title %}
+
+{% block content %}
+	<h1> Activities</h1>
+
+	{% for activity in activities %}
+	<h3> {{ activity.name }} </h3>
+		<ul>
+			<li> User: {{ activity.user }} </li>
+			<!--  REMOVING TAG FUNCITONALITY <li> Tags: {{ activity.tags }} </li> -->
+			<li> <a href="{% url "activityInstance_form"  activity.pk  %}"> Go to activity Instance form for this activity </a>. 
+			<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating -- go to rating form </a> </li>
+			</li>
+			<b>Rate Activity Criterias </b>
+			<ul>
+				{% for r in activity.rateActivities.all %}
+				<li> <a href="{% url "rateActivity_detail" activity.pk r.pk %}">{{ r.name }}</a></li>
+				{% endfor %}
+			</ul>
+		</ul>
+	{% endfor %}
+{% endblock content %}
+	  
+

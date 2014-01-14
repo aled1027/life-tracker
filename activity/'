@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from activity.models import *
 from activity.forms import *
@@ -21,7 +21,7 @@ def activityFormView(request, a_id=None):
 			instance = form.save(commit=False)
 			instance.user = request.user
 			instance.save()
-			return HttpResponseRedirect(reverse('activity_list'))
+			return HttpResponseRedirect(reverse('activity_detail', args=[instance.id]))
 		else:
 			return HttpResponseRedirect(reverse('home'))
 	else:
@@ -78,34 +78,28 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 	else:
 		aI = None
 	if request.method == "POST":
-		form = ActivityInstanceForm(request.POST, request.FILES, prefix="aIForm")
+		form = RateActivityForm(request.POST) #doesn't have prefix included
 		a = get_object_or_404(Activity, pk=a_id)
-		n = len(RateActivity.objects.filter(activity=a)) # amount of RateActivities for this activity
+		n = len(RateActivity.objects.filter(activity=a))
 		rForms = [RateActivityInstanceForm(request.POST, prefix=str(x)) for x in range(0,n)]
 		if form.is_valid() and all([rF.is_valid() for rF in rForms]):
 			activity = get_object_or_404(Activity, pk=a_id)
 			form.activty = activity
-			instance = form.save()
 			new_activityInstance = form.save() # could do instance = form.save() if I want to access the object
-			for rF in rForms:
-				new_rF = rF.save(commit=False)
-				new_rF.activityInstance = new_activityInstance
-				new_rF.save()
 			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, instance.id)))
 		else:
+			print form.errors
 			print "couldn't save form in activityInstanceFormView"
 			# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
 			# probably a duplication/uniqueness error
-			return HttpResponse(form.errors)
+			return HttpResponseRedirect(reverse("home"))
 	else:
-		# can optimize this. Or make it cleaner
 		# form has no activityInstance associated with it
 		form = ActivityInstanceForm(instance=aI, prefix="aIForm") # was aI_id
 		a = get_object_or_404(Activity, pk=a_id)
 		rS = RateActivity.objects.filter(activity=a)
 		rForms = []
 		if aI_id:
-			print "here1"
 			for r in rS:
 				# get rate activityInstances of activity
 				rI = RateActivityInstance.objects.get(activityInstance=aI)

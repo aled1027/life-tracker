@@ -1,0 +1,23 @@
+<!-- look into using form action="" ... probably important .... -->
+{% extends "base.html" %}
+{% block title %} {{form.n}} {% endblock title %}
+{% block content %}
+
+	<h1> {{form.n }} </h1>
+	<p> {{ form.note }} </p>
+	<form action="" method="POST">
+		{{ form.as_p }}
+		{% csrf_token %}
+		<b>Rate Activity Criterias </b>
+		<ul>
+		{% for r in rForms %}
+			<b>{{ r.name }} </b>
+			{{ r.as_p }}
+			{% csrf_token %}
+		{% endfor %}
+		</ul>
+	<input type="submit" value="Submit">
+	</form>
+{% endblock content %}
+	  
+

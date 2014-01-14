@@ -8,7 +8,15 @@
 </head>
 <body>
 	<!-- ___________add sidebar here __________________ -->
+	{% block sidebar %}
+	<h4>Navigation</h4>
+	<ul class="sidebar-links">
+		<li><a href="{% url "activity_form" %}">Add New Activity</a></li>
+		<li><a href="{% url "activity_list" %}">View all activities</a></li>
+		<li><a href="{% url "accounts" %}">Go to accounts</a></li>
+	</ul>
+	{% endblock sidebar %}
 	{% block content %}
-	{% endblock %}
+	{% endblock content %}
 </body>
 </html>
