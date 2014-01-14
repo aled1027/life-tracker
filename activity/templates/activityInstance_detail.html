@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} Activity Detail {% endblock title %}
+{% block content %}
+	<h1> Activity Instance Detail </h1>
+	<p> Need to finish this </p>
+	<ul>
+		<li> User: {{ activity.user }} </li>
+		<li> Name: {{ activity.name }} </li>
+		<li> Tags: {{ activity.tags }} </li>
+	</ul>
+	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating -- go to rating form </a>
+	</br>
+	<a href="{% url "rateActivity_form"  activity.pk  %}"> Go to activity Instance form. There, fill out all rating forms associated with this activity </a>
+
+<ul>
+	{% for r in activity.rateActivities.all %}
+	<li> {{ r.name }} </li>
+	<ul>
+		{% for rI in r.rateActivityInstances.all %}
+			<li> most recent rating: {{ rI.rating }} </li>
+		{% endfor %}
+	</ul>
+	{% endfor %}
+	<p> not actually givng the most recent rating ^^ fix that. </p>
+</ul>
+		
+	
+{% endblock content %}
+	  
+

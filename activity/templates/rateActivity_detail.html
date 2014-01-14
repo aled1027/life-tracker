@@ -1,0 +1,15 @@
+<!-- gets rateActivity and activity (activity is the foreignkey of rateActivity) -->
+
+{% extends "base.html" %}
+{% block title %} Rate Activity Detail {% endblock title %}
+{% block content %}
+	<h1> Rate Activity Detail </h1>
+	<ul>
+		<li> User: {{ activity.user }} </li>
+		<li> Name of activity: {{ activity.name }} </li>
+		<li> Name of rating criteria: {{ rateActivity.name }} </li>
+	</ul>
+	<a href="{% url "activity_detail"  activity.pk  %}"> Go to associated activity </a>
+{% endblock content %}
+	  
+
