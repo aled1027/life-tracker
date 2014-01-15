@@ -1,15 +1,17 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 from activity.models import *
 from activity.forms import *
 
 
-# Create your views here.
+@login_required
 def homeView(request):
 	args = {}
 	return render(request, "home.html", args)
 
+@login_required
 def activityFormView(request, a_id=None):
 	if a_id:
 		a = get_object_or_404(Activity, pk=a_id)
@@ -28,6 +30,7 @@ def activityFormView(request, a_id=None):
 		form = ActivityForm(instance=a)
 		return render(request, "form.html", {'form': form})
 
+@login_required
 def activityDetailView(request, a_id):
 	try:
 		a = Activity.objects.get(pk=a_id)
@@ -35,6 +38,7 @@ def activityDetailView(request, a_id):
 		raise Http404
 	return render(request, "activity_detail.html", {"activity": a})
 
+@login_required
 def activityListView(request):
 	try:
 		activities = Activity.objects.filter(user=request.user)
@@ -42,7 +46,7 @@ def activityListView(request):
 		raise Http404
 	return render(request, "activity_list.html", {"activities": activities})
 
-
+@login_required
 def rateActivityDetailView(request, a_id, r_id):
 	try:
 		r = RateActivity.objects.get(pk=r_id)
@@ -51,6 +55,7 @@ def rateActivityDetailView(request, a_id, r_id):
 		raise Http404
 	return render(request, "rateActivity_detail.html", {"rateActivity": r, "activity": a})
 
+@login_required
 def rateActivityFormView(request, a_id, r_id=None):
 	if r_id:
 		r = get_object_or_404(RateActivity, pk=r_id)
@@ -72,6 +77,7 @@ def rateActivityFormView(request, a_id, r_id=None):
 		form = RateActivityForm(instance=r)
 		return render(request, "rateActivity_form.html", {"form": form})
 
+@login_required
 def activityInstanceFormView(request, a_id, aI_id=None):
 	if aI_id:
 		aI = get_Object_or_404(ActivityInstance, pk=aI_id)
@@ -84,14 +90,17 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 		rForms = [RateActivityInstanceForm(request.POST, prefix=str(x)) for x in range(0,n)]
 		if form.is_valid() and all([rF.is_valid() for rF in rForms]):
 			activity = get_object_or_404(Activity, pk=a_id)
-			form.activty = activity
-			instance = form.save()
-			new_activityInstance = form.save() # could do instance = form.save() if I want to access the object
-			for rF in rForms:
+			new_activityInstance = form.save(commit=False)
+			new_activityInstance.activity = activity
+			new_activityInstance.save()
+# exclude = ['rateActivity', 'activityInstance']
+			rateActivities = RateActivity.objects.filter(activity=a)
+			for rF,rateActivity in zip(rForms,rateActivities):
 				new_rF = rF.save(commit=False)
 				new_rF.activityInstance = new_activityInstance
+				new_rF.rateActivity = rateActivity
 				new_rF.save()
-			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, instance.id)))
+			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, new_activityInstance.id)))
 		else:
 			print "couldn't save form in activityInstanceFormView"
 			# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
@@ -105,7 +114,6 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 		rS = RateActivity.objects.filter(activity=a)
 		rForms = []
 		if aI_id:
-			print "here1"
 			for r in rS:
 				# get rate activityInstances of activity
 				rI = RateActivityInstance.objects.get(activityInstance=aI)
@@ -122,14 +130,13 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 				i=i+1
 		return render(request, "activityInstance_form.html", {"form": form, "rForms": rForms})
 
+@login_required
 def activityInstanceDetailView(request, a_id, aI_id):
-	try:
-		aI = get_object_or_404(ActivityInstance, pk=aI_id)
-		a = get_object_or_404(Activity, pk=a_id)
-	except ActivityInstance.DoesNotExist or Activity.DoesNotExist:
-		raise Http404
+	aI = get_object_or_404(ActivityInstance, pk=aI_id)
+	a = get_object_or_404(Activity, pk=a_id)
 	return render(request, "activityInstance_detail.html", {"activityInstance": aI, "activity": a})
 
+@login_required
 def rateActivityInstanceFormView(request, a_id, r_id, aI_id, rI_id=None):
 	if rI_id:
 		rI = get_object_or_404(RateActivityInstance, pk=rI_id)
@@ -138,8 +145,8 @@ def rateActivityInstanceFormView(request, a_id, r_id, aI_id, rI_id=None):
 	if request.method == "POST":
 		form = RateActivityForm(request.POST, request.FILES)
 		if form.is_valid():
-			 #= get_object_or_404(RateActivity, pk=r_id)
-			#form.rateActivty = get_object_or_404(RateActivity, pk=r_id)
+			instance = form.save(commit=False)
+			instance.activity = get_object_or_404(Activity, pk=a_id)
 			instance = form.save()
 			return HttpResponseRedirect(reverse('rateActivityInstance_detail', args=(a_id, r_id, instance.id)))
 		else:
@@ -151,6 +158,7 @@ def rateActivityInstanceFormView(request, a_id, r_id, aI_id, rI_id=None):
 		form = RateActivityInstanceForm(instance=rI)
 		return render(request, "form.html", {"form": form})
 
+@login_required
 def rateActivityInstanceDetailView(request, a_id, r_id, aI_id, rI_id):
 	return HttpResponseRedirect(reverse('activityInstance_detail', args=[a_id, aI_id]))
 

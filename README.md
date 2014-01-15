@@ -1,15 +1,19 @@
+To work on:
+4. Add account view to see user information
+5. add tutorial to home
+6. Check forms
+	- when they save activityInstanceForm, make sure times and lengths are valid
+7. User ability to delete and edit everything
+8. User ability to look at graphs and things
 
 - add help_text to django model fields
-- removing tag functionality. Ask sam if he wants it .. add in later.
-- names of things are unique to everyone, make only unique to a single user
-- work on templates for activity
-- Add account view to see user information
-- add tutorial to home
-- make default on datetime fields now. 
 - Accounts:
 	accounts/register has no view...
 	add a main index page for accounts
 	make sure user is logged in before proceeding anywhere.  I don't want to mess with that shit. 
+- for analysis of collected data:
+	http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
+- removing tag functionality. Ask sam if he wants it .. add in later.
 
      <p> use the following format for dates/times: '10/25/2006 14:30'<p>
 
@@ -21,6 +25,4 @@ To use South:
 			migrate activity --fake
 			migrate activity
 
-
-code: TENBUX
 

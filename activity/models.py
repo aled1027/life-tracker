@@ -3,18 +3,20 @@ from django.contrib import admin
 from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from django.contrib import admin
+from datetime import datetime
 
 class Activity(Model):
 	user = ForeignKey(User, related_name="activities")
-	name = CharField(max_length=200, unique=True)
+	name = CharField(max_length=200)
 	tags = TaggableManager()
-
+	class meta:
+		unique_together = (("user", "name"))
 	def __unicode__(self):
 		return self.name
 
 class ActivityInstance(Model):
-	startTime = DateTimeField(blank=True)
-	endTime = DateTimeField(blank=True)
+	startTime = DateTimeField(blank=True, default=datetime.now())
+	endTime = DateTimeField(blank=True, default=datetime.now())
 	length_days = IntegerField(default=0, blank=True)
 	length_hours = IntegerField(default=0, blank=True)
 	length_minutes = IntegerField(default=0, blank=True)
@@ -24,12 +26,11 @@ class ActivityInstance(Model):
 
 	def __unicode__(self):
 		return u"%s: %s" % (self.activity, self.startTime)
-
 	# add method to calculate time if needed
 
 class RateActivity(Model):
 	activity = ForeignKey(Activity, related_name="rateActivities", blank=True)
-	name = CharField(max_length=1000, unique=True)
+	name = CharField(max_length=1000)
 
 	def __unicode__(self):
 		return self.name

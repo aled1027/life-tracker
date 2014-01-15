@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
@@ -7,6 +8,8 @@ from django.shortcuts import render
 from forms import MyRegistrationForm
 
 
+def accounts_home(request):
+	return render(request, "accounts_home.html", {})
 def login(request):
 	c = {}
 	c.update(csrf(request))
@@ -38,7 +41,9 @@ def register_user(request):
 		form = MyRegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/accounts/register_success')
+			return HttpResponseRedirect(reverse("register_success"))
+		else:
+			return HttpResponseRedirect(reverse("register_error"))
 
 	args = {}
 	args.update(csrf(request))
@@ -46,4 +51,7 @@ def register_user(request):
 	return render(request, 'register.html', args)
 
 def register_success(request):
-	return render('register_success.html')
+	return render(request, 'register_success.html', {})
+
+def register_error(request):
+	return render(request, 'register_error.html', {})

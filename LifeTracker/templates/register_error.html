@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Register Error{% endblock %}
+{% block content %}
+<h2> Register Error </h2>
+<p> There was an error registering you. Possible errors include:
+invalid username, password or email. Already taken username or password. Server error. Other user error. Try again. If the error persists, then contact the site administrator via a link on the Accounts home page. </p>
+<a href="{% url "register_user" %}">Try again</a>
+<br>
+<a href="{% url "accounts" %}">Accounts Home</a>
+{% endblock content %}
