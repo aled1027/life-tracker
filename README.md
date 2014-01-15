@@ -1,3 +1,5 @@
+I should write a bashscript to switch between heroku and local settings
+
 To work on:
 7. User ability to delete and edit everything
 8. User ability to look at graphs and things

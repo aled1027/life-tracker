@@ -13,7 +13,6 @@ urlpatterns = patterns('',
 		url(r'^accounts/loggedin/$', 'LifeTracker.views.loggedin'),
 		url(r'^accounts/invalid/$', 'LifeTracker.views.invalid_login'),
 		url(r'^accounts/register/$', 'LifeTracker.views.register_user', name='register_user'),
-
 		url(r'^accounts/register_success/$', 'LifeTracker.views.register_success', name="register_success"),
 		url(r'^accounts/register_error/$', 'LifeTracker.views.register_error', name="register_error"),
 )

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %} Accounts Home {% endblock %}
+{% block title %} {{user.username }}'s Profile {% endblock %}
 
 {% block content %}
-<h2>  Accounts Home </h2>
+<h2> {{user.username }}'s Profile </h2>
 <ul>
 	<li><a href="{% url "login" %}">Login</a></li>
 	<li><a href="{% url "logout" %}">Logout</a></li>
@@ -13,11 +13,9 @@
 
 <h4> User Information: </h4>
 {% if user.is_authenticated %}
-	<ul>
-		<li>Username: {{ user.username }} </li>
-		
-		{% if user.email %}	<li>Email: {{user.email}} </li> {% endif %}
-{% else %}<a href="{% url "login" %}">Login</a>
+	Welcome '{{ user.username }}'
+{% else %}
+	<a href="{% url "login" %}">Login</a>
 {% endif %}
 
 {% endblock %}
