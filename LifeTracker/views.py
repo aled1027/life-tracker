@@ -1,11 +1,13 @@
 from django.shortcuts import render
+import logging
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
 from forms import MyRegistrationForm
+
+logger = logging.getLogger(__name__)
 
 
 def accounts_home(request):
@@ -31,6 +33,8 @@ def loggedin(request):
 	return render(request, 'loggedin.html', {'full_name': request.user.username})
 
 def invalid_login(request):
+	logger.error(request)
+	logger.error(request.user)
 	return render(request, 'invalid_login.html')
 
 def logout(request):
