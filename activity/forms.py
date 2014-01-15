@@ -7,7 +7,7 @@ class ActivityForm(ModelForm):
 	class Meta:
 		model = Activity
 		exclude = ['user', 'tags']
-	class RateActivityForm(ModelForm):
+class RateActivityForm(ModelForm):
 	n = "Create a new rating subject"
 	class Meta:
 		model = RateActivity
