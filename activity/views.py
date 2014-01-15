@@ -91,9 +91,11 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 		if form.is_valid() and all([rF.is_valid() for rF in rForms]):
 			activity = get_object_or_404(Activity, pk=a_id)
 			new_activityInstance = form.save(commit=False)
+			if new_activityInstance.hasError == True:
+				# FIGURE THIS OUT
+				 pass # skips to past if statement
 			new_activityInstance.activity = activity
 			new_activityInstance.save()
-# exclude = ['rateActivity', 'activityInstance']
 			rateActivities = RateActivity.objects.filter(activity=a)
 			for rF,rateActivity in zip(rForms,rateActivities):
 				new_rF = rF.save(commit=False)
@@ -101,11 +103,10 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 				new_rF.rateActivity = rateActivity
 				new_rF.save()
 			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, new_activityInstance.id)))
-		else:
-			print "couldn't save form in activityInstanceFormView"
-			# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
-			# probably a duplication/uniqueness error
-			return HttpResponse(form.errors)
+		print "couldn't save form in activityInstanceFormView"
+		# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
+		# probably a duplication/uniqueness error
+		return HttpResponse(form.errors)
 	else:
 		# can optimize this. Or make it cleaner
 		# form has no activityInstance associated with it
