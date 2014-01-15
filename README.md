@@ -1,8 +1,4 @@
 To work on:
-4. Add account view to see user information
-5. add tutorial to home
-6. Check forms
-	- when they save activityInstanceForm, make sure times and lengths are valid
 7. User ability to delete and edit everything
 8. User ability to look at graphs and things
 

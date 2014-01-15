@@ -7,6 +7,24 @@ class ActivityForm(ModelForm):
 	class Meta:
 		model = Activity
 		exclude = ['user', 'tags']
+	def save(self, commit=True):
+		print "in save"
+		instance = super(ActivityInstanceForm, self).save(commit=False)
+		if not instance.isLengthAccurate:
+			l = instance.endTime - instance.startTime
+			instance.length_days = l.days
+			instance.length_hours = l.hours
+			instance.length_minutes = l.minutes
+			instance.length_seconds = l.seconds
+			instance.isLengthAccurate = True
+		if hasError and (endTime - startTime)  < 0:
+			instance.hasError = True
+			return instance
+		else:
+			instance.hasError = False
+		if commit:
+			instance.save()
+		return instance
 
 class RateActivityForm(ModelForm):
 	n = "Create a new rating subject"
@@ -16,11 +34,10 @@ class RateActivityForm(ModelForm):
 
 class ActivityInstanceForm(ModelForm):
 	n = "Record an instance of the activity"
-	note = "Either edit the start and end time below, or enter the amount of time that you spent on the activity. If you leave the amounts of time as zero, the program will automatically calculate the time spent. Try to stick to one timezone please."
-
+	note = "I recommend sticking to one timezone."
 	class Meta:
 		model = ActivityInstance
-		exclude = ['activity']
+		exclude = ['activity', 'hasError']
 
 class RateActivityInstanceForm(ModelForm):
 	n = "Record a rating"

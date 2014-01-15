@@ -10,6 +10,7 @@ from forms import MyRegistrationForm
 
 def accounts_home(request):
 	return render(request, "accounts_home.html", {})
+
 def login(request):
 	c = {}
 	c.update(csrf(request))

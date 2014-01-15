@@ -2,7 +2,7 @@ from django.conf.urls import *
 from activity.views import *
 
 urlpatterns = patterns("",
-		url(r'^$', homeView, {}, "home"),
+		url(r'^$', activityListView, {}, "home"),
 		url(r'^new-activity/(?P<pk>\d+)/$', activityFormView, {}, "activity_form"),
 		url(r'^new-activity/$', activityFormView, {}, "activity_form"),
 		url(r'^list/$', activityListView, {}, "activity_list"),

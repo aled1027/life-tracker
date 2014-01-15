@@ -17,16 +17,18 @@ class Activity(Model):
 class ActivityInstance(Model):
 	startTime = DateTimeField(blank=True, default=datetime.now())
 	endTime = DateTimeField(blank=True, default=datetime.now())
+	isTimeAccurate = BooleanField(default=False)
 	length_days = IntegerField(default=0, blank=True)
 	length_hours = IntegerField(default=0, blank=True)
 	length_minutes = IntegerField(default=0, blank=True)
 	length_seconds = IntegerField(default=0, blank=True)
+	isLengthAccurate = BooleanField(default=False)
 	log = TextField(blank=True)
 	activity = ForeignKey(Activity, related_name="activityInstances", blank=True)
+	hasError = BooleanField(default=False)
 
 	def __unicode__(self):
 		return u"%s: %s" % (self.activity, self.startTime)
-	# add method to calculate time if needed
 
 class RateActivity(Model):
 	activity = ForeignKey(Activity, related_name="rateActivities", blank=True)
