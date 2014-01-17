@@ -8,9 +8,7 @@
 	{% for activity in activities %}
 	<h3> {{ activity.name }} </h3>
 		<ul>
-			<li> User: {{ activity.user }} </li>
-			<!--  REMOVING TAG FUNCITONALITY <li> Tags: {{ activity.tags }} </li> -->
-			<li> <a href="{% url "activityInstance_form"  activity.pk  %}"> Go to activity Instance form for this activity </a>. 
+			<li> <a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>. 
 			<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating -- go to rating form </a> </li>
 			</li>
 			<b>Rate Activity Criterias </b>
