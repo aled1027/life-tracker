@@ -2,27 +2,32 @@
 {% block title %} Activity Detail {% endblock title %}
 {% block content %}
 	<h1> Activity Instance Detail </h1>
-	<p> Need to finish this </p>
 	<ul>
-		<li> User: {{ activity.user }} </li>
-		<li> Name: {{ activity.name }} </li>
-		<li> Tags: {{ activity.tags }} </li>
+			<li> User: {{ activity.user }} </li>
+			<li> Activity Name: {{ activity.name }} </li>
+		{% if activityInstance.isTimeAccurate %}
+			<li> Start Time: {{activityInstance.startTime}} </li>
+			<li> End Time: {{activityInstance.endTime}} </li>
+		{% endif %}
+		{% if activityInstance.isLengthAccurate %}
+			<li> Days: {{ activityInstance.length_days }} </li>
+			<li> Hours: {{ activityInstance.length_hours }} </li>
+			<li> Minutes: {{ activityInstance.length_minutes }} </li>
+			<li> Seconds: {{ activityInstance.length_seconds }} </li>
+		{% endif %}
+			<p> {{ activityInstance.log }} </p>
 	</ul>
-	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating -- go to rating form </a>
-	</br>
-	<a href="{% url "rateActivity_form"  activity.pk  %}"> Go to activity Instance form. There, fill out all rating forms associated with this activity </a>
+	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating</a>
 
-<ul>
-	{% for r in activity.rateActivities.all %}
-	<li> {{ r.name }} </li>
+	<h3> Ratings </h3>
 	<ul>
-		{% for rI in r.rateActivityInstances.all %}
-			<li> most recent rating: {{ rI.rating }} </li>
-		{% endfor %}
-	</ul>
+	{% for rI in activityInstance.rateActivityInstances.all %}
+	<li>{{ rI.rateActivity.name }}: {{rI.rating }} </li>
 	{% endfor %}
-	<p> not actually givng the most recent rating ^^ fix that. </p>
-</ul>
+	</ul>
+
+
+
 		
 	
 {% endblock content %}

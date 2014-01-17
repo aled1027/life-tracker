@@ -42,7 +42,7 @@ class RateActivity(Model):
 class RateActivityInstance(Model):
 	rating = IntegerField(blank=True)
 	rateActivity = ForeignKey(RateActivity, related_name="rateActivityInstances")
-	activityInstance = OneToOneField(ActivityInstance, related_name="rateActivityInstances", blank=True)
+	activityInstance = ForeignKey(ActivityInstance, related_name="rateActivityInstances", blank=True)
 
 	def __unicode__(self):
 		return u"%s: %s" % (self.rateActivity, self.rating)

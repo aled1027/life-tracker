@@ -65,7 +65,9 @@ def rateActivityFormView(request, a_id, r_id=None):
 		form = RateActivityForm(request.POST, request.FILES)
 		if form.is_valid():
 			activity = get_object_or_404(Activity, pk=a_id)
-			form.activty = activity
+			instance = form.save(commit=False) # could do instance = form.save() if I want to access the object
+			instance.activity = activity
+			instance.save()
 			instance = form.save() # could do instance = form.save() if I want to access the object
 			return HttpResponseRedirect(reverse('rateActivity_detail', args=(a_id, instance.id)))
 		else:
@@ -136,6 +138,9 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 def activityInstanceDetailView(request, a_id, aI_id):
 	aI = get_object_or_404(ActivityInstance, pk=aI_id)
 	a = get_object_or_404(Activity, pk=a_id)
+
+	# get all ratings associated with this activity and instance
+
 	return render(request, "activityInstance_detail.html", {"activityInstance": aI, "activity": a})
 
 @login_required

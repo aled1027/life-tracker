@@ -1,10 +1,18 @@
 I should write a bashscript to switch between heroku and local settings
 
+Make sure that when one adds an rateActivity that all previously
+made activityInstances aren't all fucked up. I think make the 
+rate activity instnace optional for activityInstances
+
 To work on:
-6. activity instance detail template
-7. User ability to delete and edit everything
-8. User ability to look at graphs and things
-9. Add tests
+1. activity instance detail template
+2. Activity Detail page
+	remove activity/list, just make /activities that page
+2. User download data
+2. User ability to look at data
+3. User ability to delete and edit everything
+4. User able to look at graphs of data
+5. Add tests
 
 - add help_text to django model fields
 - Accounts:
