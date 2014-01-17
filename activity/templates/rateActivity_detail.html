@@ -9,6 +9,14 @@
 		<li> Name of activity: {{ activity.name }} </li>
 		<li> Name of rating criteria: {{ rateActivity.name }} </li>
 	</ul>
+	<!-- dates of ratings: ratings -->
+	<ul>
+		{% for rI in rateActivity.rateActivityInstances.all %}
+		<li>
+		<a href="{% url "activityInstance_detail" activity.pk rI.activityInstance.pk %}"> {{rI.activityInstance.startTime}}: {{rI.rating}} </a></li>
+		{% endfor %}
+	</ul>
+
 	<a href="{% url "activity_detail"  activity.pk  %}"> Go to associated activity </a>
 {% endblock content %}
 	  

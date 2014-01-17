@@ -9,7 +9,7 @@ from activity.forms import *
 @login_required
 def homeView(request):
 	args = {}
-	return render(request, "home.html", args)
+	return render(request, "activity_list.html", args)
 
 @login_required
 def activityFormView(request, a_id=None):
@@ -165,8 +165,25 @@ def rateActivityInstanceFormView(request, a_id, r_id, aI_id, rI_id=None):
 		form = RateActivityInstanceForm(instance=rI)
 		return render(request, "form.html", {"form": form})
 
-@login_required
-def rateActivityInstanceDetailView(request, a_id, r_id, aI_id, rI_id):
-	return HttpResponseRedirect(reverse('activityInstance_detail', args=[a_id, aI_id]))
-
-
+def export_csvUserData(request, queryset):
+#not finished
+     import csv
+     from django.utils.encoding import smart_str
+     from django.http import HttpResponse
+     response = HttpResponse(mimetype='text/csv')
+     response['Content-Disposition'] = 'attachment; filename=data.csv'
+     writer = csv.writer(response, csv.excel)
+     response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
+	 # we need to through activity
+	 	# in each, through each activity instance
+			# in each, through each activity rating instance
+     writer.writerow([
+         smart_str(u"Activity"),
+         smart_str(u"user"),
+     ])
+     for obj in queryset:
+         writer.writerow([
+             smart_str(obj.name),
+             smart_str(obj.user),
+         ])
+     return response

@@ -2,7 +2,6 @@ from django.db.models import *
 from django.contrib import admin
 from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
-from django.contrib import admin
 from datetime import datetime
 
 class Activity(Model):
@@ -46,9 +45,4 @@ class RateActivityInstance(Model):
 
 	def __unicode__(self):
 		return u"%s: %s" % (self.rateActivity, self.rating)
-
-admin.site.register(Activity)
-admin.site.register(ActivityInstance)
-admin.site.register(RateActivity)
-admin.site.register(RateActivityInstance)
 

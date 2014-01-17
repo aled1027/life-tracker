@@ -5,10 +5,7 @@ made activityInstances aren't all fucked up. I think make the
 rate activity instnace optional for activityInstances
 
 To work on:
-1. activity instance detail template
-2. Activity Detail page
-	remove activity/list, just make /activities that page
-2. User download data
+2. User download data - mostly working for admin
 2. User ability to look at data
 3. User ability to delete and edit everything
 4. User able to look at graphs of data

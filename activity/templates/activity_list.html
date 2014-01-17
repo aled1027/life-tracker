@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %} Activities {% endblock title %}
+{% block title %} Activities for {{user}} {% endblock title %}
 
 {% block content %}
-	<h1> Activities</h1>
+<h1> Activities for {{user}} </h1>
 
 	{% for activity in activities %}
 	<h3> {{ activity.name }} </h3>
