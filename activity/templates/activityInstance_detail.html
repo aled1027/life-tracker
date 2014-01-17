@@ -3,33 +3,31 @@
 {% block content %}
 	<h1> Activity Instance Detail </h1>
 	<ul>
-			<li> User: {{ activity.user }} </li>
-			<li> Activity Name: {{ activity.name }} </li>
-		{% if activityInstance.isTimeAccurate %}
-			<li> Start Time: {{activityInstance.startTime}} </li>
-			<li> End Time: {{activityInstance.endTime}} </li>
-		{% endif %}
-		{% if activityInstance.isLengthAccurate %}
+		<li> User: {{ activity.user }} </li>
+		<li> Activity Name: <a href="{% url "activity_detail" activity.id %}">{{ activity.name }} </a></li>
+			{% if activityInstance.isTimeAccurate %}
+		<li> Start Time: {{activityInstance.startTime}} </li>
+		<li> End Time: {{activityInstance.endTime}} </li>
+			{% endif %}
+			{% if activityInstance.isLengthAccurate %}
+		<li>Length:
+		<ul>
 			<li> Days: {{ activityInstance.length_days }} </li>
 			<li> Hours: {{ activityInstance.length_hours }} </li>
 			<li> Minutes: {{ activityInstance.length_minutes }} </li>
 			<li> Seconds: {{ activityInstance.length_seconds }} </li>
-		{% endif %}
-			<p> {{ activityInstance.log }} </p>
-	</ul>
-	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating</a>
+		</ul>
+		</li>
+			{% endif %}
+		<li> log: <p>{{ activityInstance.log }} </p></li>
+		</ul>
 
 	<h3> Ratings </h3>
 	<ul>
-	{% for rI in activityInstance.rateActivityInstances.all %}
-	<li>{{ rI.rateActivity.name }}: {{rI.rating }} </li>
-	{% endfor %}
+		{% for rI in activityInstance.rateActivityInstances.all %}
+		<li>{{ rI.rateActivity.name }}: {{rI.rating }} </li>
+		{% endfor %}
 	</ul>
-
-
-
-		
-	
 {% endblock content %}
 	  
 

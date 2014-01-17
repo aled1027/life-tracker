@@ -1,19 +1,40 @@
 {% extends "base.html" %}
 {% block title %} Activity Detail {% endblock title %}
 {% block content %}
-	<h1> Activity Detail </h1>
-	<ul>
-		<li> User: {{ activity.user }} </li>
-		<li> Name: {{ activity.name }} </li>
-		<li> Tags: {{ activity.tags }} </li>
-	</ul>
+<h1> {{activity.name }} Detail </h1>
 	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating -- go to rating form </a>
 	</br>
 	<a href="{% url "rateActivity_form"  activity.pk  %}"> Go to activity Instance form. There, fill out all rating forms associated with this activity </a>
 
 <ul>
+	<li>
+	{% for activityInstance in activity.activityInstances.all %}
+	<ul> 
+		{% if activityInstance.isTimeAccurate %}
+		<li> Start Time: {{activityInstance.startTime}} </li>
+		<li> End Time: {{activityInstance.endTime}} </li>
+			{% endif %}
+			{% if activityInstance.isLengthAccurate %}
+		<li>Length:
+		<ul>
+			<li> Days: {{ activityInstance.length_days }} </li>
+			<li> Hours: {{ activityInstance.length_hours }} </li>
+			<li> Minutes: {{ activityInstance.length_minutes }} </li>
+			<li> Seconds: {{ activityInstance.length_seconds }} </li>
+		</ul>
+		</li>
+			{% endif %}
+		<li> log: <p>{{ activityInstance.log }} </p></li>
+	</ul>
+	{% endfor %}
+	</li>
+</ul>
+
+
+
+<ul>
 	{% for r in activity.rateActivities.all %}
-	<li> {{ r.name }} </li>
+	<li> <a href="{% url "rateActivity_detail" activity.id r.id %}"> {{ r.name }} </a></li>
 	{% endfor %}
 </ul>
 		
