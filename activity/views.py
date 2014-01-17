@@ -110,6 +110,7 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 	else:
 		# can optimize this. Or make it cleaner
 		# form has no activityInstance associated with it
+		activity  = get_object_or_404(Activity, pk=a_id)
 		form = ActivityInstanceForm(instance=aI, prefix="aIForm") # was aI_id
 		a = get_object_or_404(Activity, pk=a_id)
 		rS = RateActivity.objects.filter(activity=a)
@@ -129,7 +130,7 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 				rForm.name = name
 				rForms.append(rForm)
 				i=i+1
-		return render(request, "activityInstance_form.html", {"form": form, "rForms": rForms})
+		return render(request, "activityInstance_form.html", {"form": form, "rForms": rForms, "activity": activity})
 
 @login_required
 def activityInstanceDetailView(request, a_id, aI_id):

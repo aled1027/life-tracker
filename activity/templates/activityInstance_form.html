@@ -3,12 +3,12 @@
 {% block title %} {{form.n}} {% endblock title %}
 {% block content %}
 
-	<h1> {{form.n }} </h1>
+	<h1>  {{activity.name }} Instance </h1>
 	<p> {{ form.note }} </p>
 	<form action="" method="POST">
 		{{ form.as_p }}
 		{% csrf_token %}
-		<b>Rate Activity Criterias </b>
+		<b>Rate this instance of {{activity.name}}</b>
 		<ul>
 		{% for r in rForms %}
 			<b>{{ r.name }} </b>

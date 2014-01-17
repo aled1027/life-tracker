@@ -1,6 +1,14 @@
 from django.db import models
 from django.forms import ModelForm
 from activity.models import *
+from datetime import datetime, timedelta
+
+def convert_timedelta(duration):
+		days, seconds = duration.days, duration.seconds
+		hours = seconds // 3600
+		minutes = (seconds % 3600) // 60
+		seconds = (seconds % 60)
+		return days, hours, minutes, seconds
 
 class ActivityForm(ModelForm):
 	n = "Create a new activity"
@@ -18,17 +26,19 @@ class ActivityInstanceForm(ModelForm):
 	note = "I recommend sticking to one timezone."
 	class Meta:
 		model = ActivityInstance
-	def save(self, commit=True):
-		print "in save"
+		exclude = ['activity', 'hasError']
+
+ 	def save(self, commit=True):
 		instance = super(ActivityInstanceForm, self).save(commit=False)
 		if not instance.isLengthAccurate:
 			l = instance.endTime - instance.startTime
-			instance.length_days = l.days
-			instance.length_hours = l.hours
-			instance.length_minutes = l.minutes
-			instance.length_seconds = l.seconds
+			days, hours, minutes, seconds = convert_timedelta(l)
+			instance.length_days = days
+			instance.length_hours = hours
+			instance.length_minutes = minutes
+			instance.length_seconds = seconds
 			instance.isLengthAccurate = True
-		if hasError and (endTime - startTime)  < 0:
+		if instance.hasError and (endTime - startTime)  < 0:
 			instance.hasError = True
 			return instance
 		else:

@@ -1,6 +1,7 @@
 I should write a bashscript to switch between heroku and local settings
 
 To work on:
+6. activity instance detail template
 7. User ability to delete and edit everything
 8. User ability to look at graphs and things
 9. Add tests
