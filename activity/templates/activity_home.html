@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %} Activities for {{user}} {% endblock title %}
+
+{% block content %}
+<h1> Welcome to life-tracker </h1>
+<p> Welcome to life-tracker, you're go-to app for documenting the happenings in your life. </p>
+
+<h4> How to use life-tracker </h4>
+<p> Using life-tracker is simple. First, you create what we call "activities". An activity is a broad category for anything that you do on a regular basis. The best examples are eating, working-out and studying. For the purposes of this tutorial, let's imagine that sleep on a regular basis and would like track your sleeping patterns. To do this, you would head over and create an activity with the name, "Sleeping". 
+<br>
+<br>
+Now that you have an activity, you can add rating criterias. Rating criterias a unique mechanism for analzying your activity. A rating criteria has two parts, the question and the response. For sleep, good rating criterias questions would be something like "How deep was your sleep?", "How many times did you wake up through the night?" or "One a scale of 1-10, how violent were your dreams?" At this point in development, responses are restricted an integer. 
+<br>
+<br>
+After creating rating criterias for your activity, you can now go record instances of the activity. An instance of the activity is simply a recording of a single time that performed the activity - so each night of sleep would be a different instance of the activity of Sleeping. When you record an instance of an activity, you have the option to answer a few questions. You can record the time you started the activity, the time you ended the activity, the length of the activity and provide a short
+log of your experience with that instance. The log is optional, but often useful for later analysis. For example, for your Sleeping activity, you could log the content and mood of your dreams. Or quantify that and put it in a rating criteria - the choice is yours. 
+<br>
+<br>
+Be sure that when you record the start and end time, you check the box indicating so; and likewise for the length. If you don't provide the duration of the instance of the activity, life-tracker will calculate it for you, but it cannot perform the reverse task: calculating the start and end time from the length. 
+<br>
+<br>
+When you fill out an instance of an activity, you will also fill out all the rating criterias for your activity. 
+<br>
+<br>
+The beauty of this system is you see how your activities changed over time. For example, if for the activity Sleeping you create the rating criteria "How deep was your sleep on a scale of 1-10", you can construct a line graph that shows how your deep sleep changed over time. Even cooler, you can add in the other data that you recorded. Perhaps the length of your sleep had an impact on the deepness of your sleep? Perhaps that only occurs on weekdays but not weekends? Life-tracker will help you
+answer these questions. 
+<br>
+<br>
+You can also download the data CVS, JSON, or XML format to view the data in another program, like excel.
+<br>
+<br>
+ If you haven't done so yet, head over to <a href="{% url "register_user" %}">create an account</a>, put in a few of your favorite activities and get started!
+ </p>
+
+{% endblock content %}

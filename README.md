@@ -1,11 +1,12 @@
-I should write a bashscript to switch between heroku and local settings
+write bash script to open up vim
+	vim -p .,.,.
 
 Make sure that when one adds an rateActivity that all previously
 made activityInstances aren't all fucked up. I think make the 
 rate activity instnace optional for activityInstances
 
 To work on:
-2. User download data - mostly working for admin
+1. User download data - mostly working for admin
 2. User ability to look at data
 3. User ability to delete and edit everything
 4. User able to look at graphs of data
