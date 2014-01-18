@@ -7,8 +7,8 @@
 	<a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>
 
 <ul>
-	<li>
 	{% for activityInstance in activity.activityInstances.all %}
+	<li>
 	<ul> 
 		<li> <a href="{% url "activityInstance_detail" activity.id activityInstance.id %}">View activity instance</a></li>
 			{% if activityInstance.isTimeAccurate %}
@@ -27,8 +27,8 @@
 			{% endif %}
 		<li> log: <p>{{ activityInstance.log }} </p></li>
 	</ul>
-	{% endfor %}
 	</li>
+	{% endfor %}
 </ul>
 
 
