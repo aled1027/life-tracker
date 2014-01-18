@@ -3,6 +3,7 @@
 {% block content %}
 	<h1> Activity Instance Detail </h1>
 	<ul>
+		<li> <a href="{% url "activityInstance_edit" activity.id activityInstance.id %}">Click here to edit this instance</a> </li>
 		<li> User: {{ activity.user }} </li>
 		<li> Activity Name: <a href="{% url "activity_detail" activity.id %}">{{ activity.name }} </a></li>
 			{% if activityInstance.isTimeAccurate %}

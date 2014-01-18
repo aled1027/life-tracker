@@ -79,7 +79,7 @@ def rateActivityFormView(request, a_id, r_id=None):
 @login_required
 def activityInstanceFormView(request, a_id, aI_id=None):
 	if aI_id:
-		aI = get_Object_or_404(ActivityInstance, pk=aI_id)
+		aI = get_object_or_404(ActivityInstance, pk=aI_id)
 	else:
 		aI = None
 	if request.method == "POST":
@@ -96,11 +96,11 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 			new_activityInstance.activity = activity
 			new_activityInstance.save()
 			rateActivities = RateActivity.objects.filter(activity=a)
-			for rF,rateActivity in zip(rForms,rateActivities):
-				new_rF = rF.save(commit=False)
-				new_rF.activityInstance = new_activityInstance
-				new_rF.rateActivity = rateActivity
-				new_rF.save()
+			for rF, rateActivity in zip(rForms,rateActivities):
+				new_rI = rF.save(commit=False)
+				new_rI.activityInstance = new_activityInstance
+				new_rI.rateActivity = rateActivity
+				new_rI.save()
 			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, new_activityInstance.id)))
 		print "couldn't save form in activityInstanceFormView"
 		# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
@@ -111,13 +111,12 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 		# form has no activityInstance associated with it
 		activity  = get_object_or_404(Activity, pk=a_id)
 		form = ActivityInstanceForm(instance=aI, prefix="aIForm") # was aI_id
-		a = get_object_or_404(Activity, pk=a_id)
-		rS = RateActivity.objects.filter(activity=a)
+		rS = RateActivity.objects.filter(activity=activity)
 		rForms = []
 		if aI_id:
 			for r in rS:
 				# get rate activityInstances of activity
-				rI = RateActivityInstance.objects.get(activityInstance=aI)
+				rI = RateActivityInstance.objects.get(activityInstance=aI, rateActivity=r)
 				rForm = RateActivityInstanceForm(instance=rI)
 				rForm.name = r.name
 				rForms.append(rForm)
@@ -162,25 +161,65 @@ def rateActivityInstanceFormView(request, a_id, r_id, aI_id, rI_id=None):
 		form = RateActivityInstanceForm(instance=rI)
 		return render(request, "form.html", {"form": form})
 
-def export_csvUserData(request, queryset):
-#not finished
-     import csv
-     from django.utils.encoding import smart_str
-     from django.http import HttpResponse
-     response = HttpResponse(mimetype='text/csv')
-     response['Content-Disposition'] = 'attachment; filename=data.csv'
-     writer = csv.writer(response, csv.excel)
-     response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
-	 # we need to through activity
-	 	# in each, through each activity instance
-			# in each, through each activity rating instance
-     writer.writerow([
-         smart_str(u"Activity"),
-         smart_str(u"user"),
-     ])
-     for obj in queryset:
-         writer.writerow([
-             smart_str(obj.name),
-             smart_str(obj.user),
-         ])
-     return response
+def activityEditView(request, a_id):
+	a = get_object_or_404(Activity, pk=a_id)
+	if request.method=="POST":
+		form = ActivityForm(request.POST, instance=a)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('activity_detail', args=(a_id)))
+	else:
+		form = ActivityForm(instance=a)
+		return render(request, "form.html", {"form":form})
+
+def activityInstanceEditView(request, a_id, aI_id):
+	aI = get_object_or_404(ActivityInstance, pk=aI_id)
+	activity = get_object_or_404(Activity, pk=a_id)
+	rS = RateActivity.objects.filter(activity=activity)
+
+	if request.method == "POST":
+		form = ActivityInstanceForm(request.POST, prefix="aIForm", instance=aI)
+
+		n = len(RateActivity.objects.filter(activity=activity)) # amount of RateActivities for this activity
+		rForms = [RateActivityInstanceForm(request.POST, prefix=str(x), instance=r) for x,r in zip(range(0,n),rS)]
+
+		if form.is_valid() and all([rF.is_valid() for rF in rForms]):
+			new_activityInstance = form.save(commit=False)
+			if new_activityInstance.hasError == True:
+				# FIGURE THIS OUT
+				 pass # skips to past if statement
+			new_activityInstance.activity = activity
+			new_activityInstance.save()
+			rateActivities = RateActivity.objects.filter(activity=activity)
+			for rF, rateActivity in zip(rForms,rateActivities):
+				new_rI = rF.save(commit=False)
+				new_rI.activityInstance = new_activityInstance
+				new_rI.rateActivity = rateActivity
+				new_rI.save()
+			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, new_activityInstance.id)))
+		print "couldn't save form in activityInstanceFormView"
+		# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
+		# probably a duplication/uniqueness error
+		return HttpResponse(form.errors)
+	else:
+		# can optimize this. Or make it cleaner
+		# form has no activityInstance associated with it
+		form = ActivityInstanceForm(instance=aI, prefix="aIForm") # was aI_id
+		rForms = []
+		if aI_id:
+			for r in rS:
+				# get rate activityInstances of activity
+				rI = RateActivityInstance.objects.get(activityInstance=aI, rateActivity=r)
+				rForm = RateActivityInstanceForm(instance=rI)
+				rForm.name = r.name
+				rForms.append(rForm)
+		else:
+			i = 0
+			for r in rS:
+				name = r.name
+				rForm = RateActivityInstanceForm(prefix=str(i))
+				rForm.name = name
+				rForms.append(rForm)
+				i=i+1
+		return render(request, "activityInstance_form.html", {"form": form, "rForms": rForms, "activity": activity})
+
