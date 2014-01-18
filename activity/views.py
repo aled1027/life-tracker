@@ -5,7 +5,12 @@ from django.contrib.auth.decorators import login_required
 from activity.models import *
 from activity.forms import *
 
-
+def homeView(request);
+	return render(request, "activity_home.html", {})
+@login_required
+def activityFormView(request, a_id=None):
+	if a_id:
+		a = get_object_or_404(Activity, pk=a_id)
 	else:
 		a  = None
 	if request.method == "POST":
