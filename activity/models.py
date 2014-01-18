@@ -39,10 +39,16 @@ class RateActivity(Model):
 # maybe def getMostRecentRating(self):
 
 class RateActivityInstance(Model):
-	rating = IntegerField(blank=True)
+	rating = IntegerField(null=True, blank=True)
 	rateActivity = ForeignKey(RateActivity, related_name="rateActivityInstances")
 	activityInstance = ForeignKey(ActivityInstance, related_name="rateActivityInstances", blank=True)
 
 	def __unicode__(self):
 		return u"%s: %s" % (self.rateActivity, self.rating)
+
+	def save(self, *args, **kwargs):
+		if not self.rating:
+			self.rating = None
+		print self.rating
+		super(RateActivityInstance, self).save(*args, **kwargs)
 

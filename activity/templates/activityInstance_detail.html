@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %} Activity Detail {% endblock title %}
 {% block content %}
-	<h1> Activity Instance Detail </h1>
+<h1> {{ activity }} Instance Detail </h1>
 	<ul>
 		<li> <a href="{% url "activityInstance_edit" activity.id activityInstance.id %}">Click here to edit this instance</a> </li>
 		<li> User: {{ activity.user }} </li>

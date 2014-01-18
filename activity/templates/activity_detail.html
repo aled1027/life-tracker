@@ -2,15 +2,16 @@
 {% block title %} Activity Detail {% endblock title %}
 {% block content %}
 <h1> {{activity.name }} Detail </h1>
-	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating -- go to rating form </a>
+	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria</a>
 	</br>
-	<a href="{% url "rateActivity_form"  activity.pk  %}"> Go to activity Instance form. There, fill out all rating forms associated with this activity </a>
+	<a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>
 
 <ul>
 	<li>
 	{% for activityInstance in activity.activityInstances.all %}
 	<ul> 
-		{% if activityInstance.isTimeAccurate %}
+		<li> <a href="{% url "activityInstance_detail" activity.id activityInstance.id %}">View activity instance</a></li>
+			{% if activityInstance.isTimeAccurate %}
 		<li> Start Time: {{activityInstance.startTime}} </li>
 		<li> End Time: {{activityInstance.endTime}} </li>
 			{% endif %}
