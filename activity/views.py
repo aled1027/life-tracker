@@ -5,8 +5,9 @@ from django.contrib.auth.decorators import login_required
 from activity.models import *
 from activity.forms import *
 
-def homeView(request);
+def activityHomeView(request):
 	return render(request, "activity_home.html", {})
+
 @login_required
 def activityFormView(request, a_id=None):
 	if a_id:
