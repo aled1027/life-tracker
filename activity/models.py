@@ -4,10 +4,19 @@ from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from datetime import datetime
 
+class ActivityManager(Manager):
+	def all(self, user=None):
+		#maybe add condidition for superuser
+		if user:
+			return super(ActivityManager, self).get_query_set().filter(user=user)
+		else:
+			return super(ActivityManager, self).get_query_set().all()
+
 class Activity(Model):
 	user = ForeignKey(User, related_name="activities")
 	name = CharField(max_length=200)
 	tags = TaggableManager()
+	objects = ActivityManager()
 	class meta:
 		unique_together = (("user", "name"))
 	def __unicode__(self):
@@ -51,4 +60,5 @@ class RateActivityInstance(Model):
 			self.rating = None
 		print self.rating
 		super(RateActivityInstance, self).save(*args, **kwargs)
+
 

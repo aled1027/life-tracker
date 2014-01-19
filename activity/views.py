@@ -29,28 +29,28 @@ def activityFormView(request, a_id=None):
 
 @login_required
 def activityDetailView(request, a_id):
-	try:
-		a = Activity.objects.get(pk=a_id)
-	except Activity.DoesNotExist:
+	a = get_object_or_404(Activity, pk=a_id)
+	if a.user == request.user:
+		return render(request, "activity_detail.html", {"activity": a})
+	else:
 		raise Http404
-	return render(request, "activity_detail.html", {"activity": a})
 
 @login_required
 def activityListView(request):
 	try:
-		activities = Activity.objects.filter(user=request.user)
+		activities = Activity.objects.all(user=request.user)
 	except:
 		raise Http404
 	return render(request, "activity_list.html", {"activities": activities})
 
 @login_required
 def rateActivityDetailView(request, a_id, r_id):
-	try:
-		r = RateActivity.objects.get(pk=r_id)
-		a = Activity.objects.get(pk=a_id)
-	except Activity.DoesNotExist:
+	r = RateActivity.objects.get(pk=r_id)
+	a = Activity.objects.get(pk=a_id)
+	if a.user == request.user:
+		return render(request, "rateActivity_detail.html", {"rateActivity": r, "activity": a})
+	else:
 		raise Http404
-	return render(request, "rateActivity_detail.html", {"rateActivity": r, "activity": a})
 
 @login_required
 def rateActivityFormView(request, a_id, r_id=None):
@@ -134,10 +134,12 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 def activityInstanceDetailView(request, a_id, aI_id):
 	aI = get_object_or_404(ActivityInstance, pk=aI_id)
 	a = get_object_or_404(Activity, pk=a_id)
-
+	if a.user == request.user:
+		return render(request, "activityInstance_detail.html", {"activityInstance": aI, "activity": a})
+	else:
+		raise Http404
 	# get all ratings associated with this activity and instance
 
-	return render(request, "activityInstance_detail.html", {"activityInstance": aI, "activity": a})
 
 @login_required
 def rateActivityInstanceFormView(request, a_id, r_id, aI_id, rI_id=None):
