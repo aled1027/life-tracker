@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} Data of {{activity.name}} {% endblock title %}
+
+{% block content %}
+<h1> Activity of {{activity.name}} </h1>
+
+	<h3> <a href="{% url "activity_detail" activity.id %}">{{ activity.name }}</a></h3>
+			<li> <a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>. </li>
+			<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria </a> </li>
+			<b>Rate Activity Criterias </b>
+			<ul>
+				{% for r in activity.rateActivities.all %}
+				<li> <a href="{% url "rateActivity_detail" activity.pk r.pk %}">{{ r.name }}</a></li>
+				{% endfor %}
+			</ul>
+{% endblock content %}
+	  
+

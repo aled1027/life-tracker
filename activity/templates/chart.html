@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head %} 
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+     <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+     <script src="/highcharts.js" type="text/javascript"></script>
+     {% load chartit %}
+     {{ chart|load_charts:"container" }}
+{% endblock head %}
+{% block title %} Chart {% endblock title %}
+{% block content %}
+	<h1> Chart </h1>
+	<div id='container'> Chart will be rendered here </div>
+{% endblock content  %}
+	  
+

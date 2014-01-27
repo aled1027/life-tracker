@@ -1,0 +1,49 @@
+body {
+	background-color: turquoise;
+}
+li {
+	list-style-type: none;
+}
+.all {
+	margin-left: 40px;
+}
+.header-images-div {
+	background: white;
+	height: 100px;
+	width: 300%;
+	padding: 0px;
+	margin: 0px;
+}
+.sidebar {
+	width: 13%;
+	height: 400px;
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	color: blue;
+}
+#search {
+	width: 100px;
+}
+.top_title {
+	color: blue;
+}
+#header-image {
+	height: 100px;
+}
+// ....................on list.html ...................
+
+.asdf {
+}
+// For some reason.. that needs to be there?
+.list li ol {
+	color: green;
+	border-style: solid:
+	border-width: 1px;
+}
+.tile {
+	background-color: LightGreen;
+}
+#slides {
+	display: none;
+}

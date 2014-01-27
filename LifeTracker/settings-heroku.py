@@ -34,6 +34,7 @@ INSTALLED_APPS = (
 	'south',
 	'activity',
 	'taggit',
+	'chartit',
 	#'django-extensions',
 )
 

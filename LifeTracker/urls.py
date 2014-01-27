@@ -6,6 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	    url(r'^admin/', include(admin.site.urls)),
 		url(r'^activity/', include('activity.urls')),
+		url(r'^$', 'activity.views.activityHomeView'),
 		url(r'^accounts/$', 'LifeTracker.views.accounts_home', name="accounts"),
 		url(r'^accounts/login/$', 'LifeTracker.views.login', name="login"),
 		url(r'^accounts/auth/$', 'LifeTracker.views.auth_view', name="auth"),

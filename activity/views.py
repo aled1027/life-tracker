@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from activity.models import *
 from activity.forms import *
+from chartit import DataPool, Chart
+
 
 def activityHomeView(request):
 	return render(request, "activity_home.html", {})
@@ -32,6 +34,12 @@ def activityDetailView(request, a_id):
 	a = get_object_or_404(Activity, pk=a_id)
 	if a.user == request.user:
 		return render(request, "activity_detail.html", {"activity": a})
+	else:
+		raise Http404
+def activityViewDataView(request, a_id):
+	a = get_object_or_404(Activity, pk=a_id)
+	if a.user == request.user:
+		return render(request, "activity_viewdata.html", {"activity": a})
 	else:
 		raise Http404
 
@@ -224,4 +232,38 @@ def activityInstanceEditView(request, a_id, aI_id):
 				rForms.append(rForm)
 				i=i+1
 		return render(request, "activityInstance_form.html", {"form": form, "rForms": rForms, "activity": activity})
+
+def chartsView(request):
+ #Step 1: Create a DataPool with the data we want to retrieve.
+     data = \
+         DataPool(
+             series=
+                 [{'options': {
+                     'source': ActivityInstance.objects.all()},
+                     'terms': [
+						 'length_seconds',
+						 'length_hours',
+						 'length_minutes']}
+				])
+
+     #step 2: Create the Chart object
+     cht = Chart(
+         datasource = data,
+         series_options =
+             [{'options':{
+                 'type': 'line',
+                 'stacking': False},
+             'terms':{
+				 'length_seconds' : [
+					'length_hours',
+					'length_minutes']
+			 }}],
+         chart_options =
+             {'title': {
+                 'text': 'Weather Data of Boston and Houston'},
+                 'xAxis': {
+                     'title': {
+                         'text': 'Month number'}}})
+     #Step 3: Send the chart object to the template.
+     return render(request, "chart.html", {'chart': cht})
 

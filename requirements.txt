@@ -8,6 +8,7 @@ django-taggit==0.11.2
 django-toolbelt==0.0.1
 gunicorn==18.0
 psycopg2==2.5.2
+pycha==0.7.0
 six==1.5.2
 static==0.4
 wsgiref==0.1.2
