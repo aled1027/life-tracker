@@ -33,6 +33,7 @@ class ActivityInstanceForm(ModelForm):
 		if not instance.isLengthAccurate:
 			l = instance.endTime - instance.startTime
 			days, hours, minutes, seconds = convert_timedelta(l)
+			instance.duration = 5
 			instance.length_days = days
 			instance.length_hours = hours
 			instance.length_minutes = minutes

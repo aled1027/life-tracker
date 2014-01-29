@@ -1,15 +1,18 @@
 To work on:
-http://www.stuartaxon.com/2011/02/25/using-pycha-with-django/`
 
+
+2 views. One for template; one with url to image
 
 1. Add graphs
-1. User download data - mostly working for admin
+	http://www.youtube.com/watch?v=zxbCkftGyds
+	http://www.thebigblob.com/making-charts-and-outputing-them-as-images-to-the-browser-in-django/
+	https://blog.dbrgn.ch/2013/9/26/plot-django-registered-users/
+	http://bitsofpy.blogspot.com/2009/07/matplotlib-in-django.html
+	http://matplotlib.org/users/recipes.html
+2. User download data - mostly working for admin
 	- http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
-3. User ability to look at data in tables more easily
-4. User able to look at tables and graphs of data
-	http://django-tables2.readthedocs.org/en/latest/
-5. Add tests
-6. Create error pages and error related code
+3. Add tests
+4. Create error pages and error related code
 
 - add help_text to django model fields
 

@@ -241,9 +241,8 @@ def chartsView(request):
                  [{'options': {
                      'source': ActivityInstance.objects.all()},
                      'terms': [
-						 'length_seconds',
 						 'length_hours',
-						 'length_minutes']}
+						 'duration']}
 				])
 
      #step 2: Create the Chart object
@@ -254,16 +253,73 @@ def chartsView(request):
                  'type': 'line',
                  'stacking': False},
              'terms':{
-				 'length_seconds' : [
-					'length_hours',
-					'length_minutes']
+				 'length_hours' : [
+					'duration']
 			 }}],
          chart_options =
              {'title': {
                  'text': 'Weather Data of Boston and Houston'},
                  'xAxis': {
                      'title': {
-                         'text': 'Month number'}}})
+                         'text': 'duration'}}})
      #Step 3: Send the chart object to the template.
      return render(request, "chart.html", {'chart': cht})
 
+def showStaticImage(request):
+	""" Simply return a static image as a png """
+	imagePath = "/home/alex/Pictures/pic2.png"
+	from PIL import Image
+	Image.init()
+	i = Image.open(imagePath)
+	response = HttpResponse(mimetype='image/png')
+	i.save(response,'PNG')
+	return response
+
+def showDynamicImage(request, a_id):
+	import matplotlib
+	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+	from matplotlib.figure import Figure
+	from matplotlib.dates import DateFormatter, date2num
+	from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
+	from matplotlib.dates import WeekdayLocator
+	import matplotlib.pyplot as plt
+	import numpy as np
+
+	a = get_object_or_404(Activity, pk=a_id)
+	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
+	durations = [aI.duration for aI in aIs]
+	startTimes = [aI.startTime for aI in aIs]
+
+	#dates = map(lambda d: d.date(), startTimes)
+	#min_date = date2num(dates[0])
+	#max_date = date2num(dates[-1])
+	#day_range = max_date - min_date + 1
+	#x = dates
+
+	x = startTimes
+	y = durations
+	print "this is x:"
+	print x
+	print "this is y:"
+	print y
+	print "here"
+	print x[0]
+	print x[-1]
+
+	fig, ax = plt.subplots()
+	s = datetime.now()
+	ax.plot_date(x, y)
+	ax.set_xlim([x[0], x[-1]])
+	#ax.set_xbound([dates[0], dates[-1]])
+	WeekdayLocator()
+	fig.autofmt_xdate()
+
+	plt.title('The Title')
+	plt.rc('font', size=8)
+
+	canvas = FigureCanvas(plt.figure(1))
+	response = HttpResponse(content_type='image/png')
+	canvas.print_png(response)
+	return response
+
+# http://stackoverflow.com/questions/17987468/custom-date-range-x-axis-in-time-series-with-matplotlib

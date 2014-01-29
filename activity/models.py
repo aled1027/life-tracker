@@ -30,6 +30,7 @@ class ActivityInstance(Model):
 	length_hours = IntegerField(default=0, blank=True)
 	length_minutes = IntegerField(default=0, blank=True)
 	length_seconds = IntegerField(default=0, blank=True)
+	duration = IntegerField(default=0, blank=True)
 	isLengthAccurate = BooleanField(default=False)
 	log = TextField(blank=True)
 	activity = ForeignKey(Activity, related_name="activityInstances", blank=True)
