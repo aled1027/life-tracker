@@ -38,6 +38,10 @@
 	<li> <a href="{% url "rateActivity_detail" activity.id r.id %}"> {{ r.name }} </a></li>
 	{% endfor %}
 </ul>
+
+
+<!-- a graph:::graph:::graph -->
+<img src="{% url "chart" activity.pk "startTime" "duration" %}" >
 		
 	
 {% endblock content %}

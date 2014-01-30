@@ -13,6 +13,7 @@ To work on:
 	- http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
 3. Add tests
 4. Create error pages and error related code
+5. Consider redoing model structure to use inheritance aka abstract base classes in documenation
 
 - add help_text to django model fields
 

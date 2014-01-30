@@ -276,45 +276,32 @@ def showStaticImage(request):
 	return response
 
 def showDynamicImage(request, a_id):
-	import matplotlib
-	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-	from matplotlib.figure import Figure
-	from matplotlib.dates import DateFormatter, date2num
-	from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
-	from matplotlib.dates import WeekdayLocator
 	import matplotlib.pyplot as plt
 	import numpy as np
+	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+	from matplotlib.figure import Figure
+	from matplotlib.dates import DateFormatter, date2num, AutoDateFormatter
 
 	a = get_object_or_404(Activity, pk=a_id)
 	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
 	durations = [aI.duration for aI in aIs]
 	startTimes = [aI.startTime for aI in aIs]
 
-	#dates = map(lambda d: d.date(), startTimes)
-	#min_date = date2num(dates[0])
-	#max_date = date2num(dates[-1])
-	#day_range = max_date - min_date + 1
-	#x = dates
-
 	x = startTimes
 	y = durations
-	print "this is x:"
-	print x
-	print "this is y:"
-	print y
-	print "here"
-	print x[0]
-	print x[-1]
 
 	fig, ax = plt.subplots()
 	s = datetime.now()
-	ax.plot_date(x, y)
-	ax.set_xlim([x[0], x[-1]])
-	#ax.set_xbound([dates[0], dates[-1]])
-	WeekdayLocator()
+	ax.plot_date(x, y, '-') #'-' signifies line graph
+	#ax.fmt_xdata = DateFormatter('%Y-%m-%d')
+	ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #https://github.com/matplotlib/matplotlib/issues/2205 # uses strftime
+	# change to 24 hour time - replace %I
 	fig.autofmt_xdate()
 
-	plt.title('The Title')
+
+	plt.title('X verse Y for %s' % a.name)
+	ax.set_xlabel('xlabel')
+	ax.set_ylabel('ylabel')
 	plt.rc('font', size=8)
 
 	canvas = FigureCanvas(plt.figure(1))
@@ -323,3 +310,47 @@ def showDynamicImage(request, a_id):
 	return response
 
 # http://stackoverflow.com/questions/17987468/custom-date-range-x-axis-in-time-series-with-matplotlib
+
+def chartView(request, a_id, xaxis, yaxis):
+	# TODO:
+	# 1. fix names for axis and title labels
+	# 2. Add units?
+	import matplotlib.pyplot as plt
+	import numpy as np
+	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+	from matplotlib.figure import Figure
+	from matplotlib.dates import DateFormatter, date2num, AutoDateFormatter
+
+	a = get_object_or_404(Activity, pk=a_id)
+	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
+
+	try:
+		x = [getattr(aI, xaxis) for aI in aIs]
+		y = [getattr(aI, yaxis) for aI in aIs]
+	except:
+		raise Http404
+
+	fig, ax = plt.subplots()
+	s = datetime.now()
+	if ('endTime' or xaxis or 'startTime' in xaxis):
+		ax.plot_date(x, y, '-') #'-' signifies line graph
+		ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #https://github.com/matplotlib/matplotlib/issues/2205 # uses strftime
+		fig.autofmt_xdate()
+	if ('endTime' in yaxis or 'startTime' in yaxis):
+		print yaxis
+		print "here"
+		ax.yaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') )
+
+	# fix these names
+	xaxisName = xaxis
+	yaxisName = yaxis
+
+	plt.title('%s verse %s for %s' % (xaxisName, yaxisName, a.name))
+	ax.set_xlabel(xaxisName)
+	ax.set_ylabel(yaxisName)
+	plt.rc('font', size=8)
+
+	canvas = FigureCanvas(plt.figure(1))
+	response = HttpResponse(content_type='image/png')
+	canvas.print_png(response)
+	return response
