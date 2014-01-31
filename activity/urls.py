@@ -20,5 +20,6 @@ urlpatterns = patterns("",
 
 		#(r'^staticImage.png$', showStaticImage, {}, "staticImage"),
 		#(r'^(?P<a_id>\d+)/dynamicImage.png$', showDynamicImage, {}, "dynamicImage"),
-		(r'^(?P<a_id>\d+)/(?P<xaxis>\w+)/(?P<yaxis>\w+)/chart.png/$', chartView, {}, "chart"),
+		url(r'^(?P<a_id>\d+)/(?P<xaxis>\w+)/(?P<yaxis>\w+)/chart.png/$', chartView, {}, "chart"),
+		url(r'^(?P<a_id>\d+)/chart-form/$', chartFormView, {}, "chart_form"),
 )

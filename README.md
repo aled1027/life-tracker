@@ -1,6 +1,11 @@
 To work on:
 
 
+Let's just make a model based on https://docs.djangoproject.com/en/dev/ref/models/fields/ and then make a form with meta: class=thatModel and work from there. I think that should work. 
+
+Although, I'm unsure why this doesn't work. I guess because there is no field for the data to go???
+
+
 2 views. One for template; one with url to image
 
 1. Add graphs
@@ -14,6 +19,8 @@ To work on:
 3. Add tests
 4. Create error pages and error related code
 5. Consider redoing model structure to use inheritance aka abstract base classes in documenation
+6. Add a page about the site. The features, how they are implemented, my process and so on
+7. Add coooooookies. mmmmm
 
 - add help_text to django model fields
 

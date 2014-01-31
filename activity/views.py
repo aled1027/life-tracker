@@ -312,6 +312,8 @@ def showDynamicImage(request, a_id):
 # http://stackoverflow.com/questions/17987468/custom-date-range-x-axis-in-time-series-with-matplotlib
 
 def chartView(request, a_id, xaxis, yaxis):
+	# capital letters matter for query of rateActivity
+
 	# TODO:
 	# 1. fix names for axis and title labels
 	# 2. Add units?
@@ -323,28 +325,42 @@ def chartView(request, a_id, xaxis, yaxis):
 
 	a = get_object_or_404(Activity, pk=a_id)
 	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
+	rA = get_object_or_404(RateActivity, name=xaxis)
+	rAIs = RateActivityInstance.objects.filter(rateActivity=rA)
 
 	try:
 		x = [getattr(aI, xaxis) for aI in aIs]
+	except:
+		try:
+			rA = get_object_or_404(RateActivity, name=xaxis)
+			x = [rAI.rating for rAI in rAIs]
+		except:
+			raise Http404
+	try:
 		y = [getattr(aI, yaxis) for aI in aIs]
 	except:
-		raise Http404
+		try:
+			rA = get_object_or_404(RateActivity, name=yaxis)
+			y = [rAI.rating for rAI in rAIs]
+		except:
+			raise Http404
+
 
 	fig, ax = plt.subplots()
 	s = datetime.now()
-	if ('endTime' or xaxis or 'startTime' in xaxis):
+	if ('endTime' in xaxis) or ('startTime' in xaxis):
 		ax.plot_date(x, y, '-') #'-' signifies line graph
-		ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #https://github.com/matplotlib/matplotlib/issues/2205 # uses strftime
+		ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #uses strftime
 		fig.autofmt_xdate()
+	else:
+		ax.plot(x,y,'-')
+
 	if ('endTime' in yaxis or 'startTime' in yaxis):
-		print yaxis
-		print "here"
 		ax.yaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') )
 
 	# fix these names
 	xaxisName = xaxis
 	yaxisName = yaxis
-
 	plt.title('%s verse %s for %s' % (xaxisName, yaxisName, a.name))
 	ax.set_xlabel(xaxisName)
 	ax.set_ylabel(yaxisName)
@@ -354,3 +370,31 @@ def chartView(request, a_id, xaxis, yaxis):
 	response = HttpResponse(content_type='image/png')
 	canvas.print_png(response)
 	return response
+
+def chartFormView(request, a_id):
+	if request.method == 'POST':
+		form = MyForm(None, request.POST)
+		if form.is_valid():
+			form.data['xaxis']
+			return HttpResponseRedirect(reverse('chart', args=(1,form.data['xaxis'], form.data['yaxis'])))
+		else:
+			print "form is invalid"
+			print form.errors
+			return HttpResponseRedirect(reverse('home'))
+	else:
+		activity = get_object_or_404(Activity, pk=a_id)
+		choices = []
+		for rA in RateActivity.objects.filter(activity=activity):
+			choices.append((rA.name, rA.name))
+		choices.append(('startTime', 'Start Time'))
+		choices.append(('endTime', 'End Time'))
+		choices.append(('duration', 'Duration'))
+		xaxis = tuple(choices)
+		form = MyForm(choices=[xaxis, xaxis])
+		return render(request, "form.html", {'form': form})
+
+
+
+
+
+

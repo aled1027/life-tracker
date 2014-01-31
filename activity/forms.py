@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from django import forms
 from activity.models import *
 from datetime import datetime, timedelta
 
@@ -56,3 +57,21 @@ class RateActivityInstanceForm(ModelForm):
 	class Meta:
 		model = RateActivityInstance
 		exclude = ['rateActivity', 'activityInstance']
+
+class ChartForm(forms.Form):
+	xaxis = forms.ChoiceField(required=False)
+	#yaxis = forms.ChoiceField(required=False)
+
+	def __init__(self, *args, **kwargs):
+		super(ChartForm, self).__init__(*args, **kwargs)
+		if "new" in args[0]:
+			self.fields['xaxis'].choices = (('hi', 'hi'),('bye', 'bye'))
+
+class MyForm(forms.Form):
+	def __init__(self, choices, *args, **kwargs):
+		super(MyForm, self).__init__(*args, **kwargs)
+		if choices:
+			print choices
+			self.fields['xaxis'] = forms.ChoiceField(choices=choices[0])
+			self.fields['yaxis'] = forms.ChoiceField(choices=choices[1])
+
