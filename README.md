@@ -1,22 +1,16 @@
 To work on:
 
-- Images are not updating immediately. Sometimes they are not updating at all. 
-	What I mean is that /activity/1/startTime/vigor/chart.png will not necessarily display a chart with those axes/data
-	It will display a previously accessed chart in its stead. Even after multiple refreshes, the image is not updating to 
-	reflect the url's parameters
-
-
-
-1. Add html/css/javascript
-2. User download data - mostly working for admin
+1. Get static files working on heroku server
+	- Use AWS
+	- https://devcenter.heroku.com/articles/s3
+	- http://www.realpython.com/blog/python/migrating-your-django-project-to-heroku/#.Uu8_Kd_Tk8o
+2. Add tests
+3. Create error pages and error related code
+4. Consider redoing model structure to use inheritance aka abstract base classes in documenation
+5. User download data - mostly working for admin
 	- http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
-3. Add tests
-4. Create error pages and error related code
-5. Consider redoing model structure to use inheritance aka abstract base classes in documenation
-6. Add a page about the site. The features, how they are implemented, my process and so on
-7. Add coooooookies. mmmmm
-
-- add help_text to django model fields
+6. Add coooooookies. mmmmm
+7. add help_text to django model fields
 
 - removing tag functionality. Ask sam if he wants it .. add in later.
 
@@ -40,4 +34,3 @@ Marketing Ideas:
 		- We all have different needs
 
 
-http://www.realpython.com/blog/python/migrating-your-django-project-to-heroku/#.Uu8_Kd_Tk8o
