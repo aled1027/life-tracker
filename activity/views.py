@@ -8,7 +8,7 @@ from chartit import DataPool, Chart
 
 
 def activityHomeView(request):
-	return render(request, "activity_home.html", {})
+	return render(request, "activity_about.html", {})
 
 @login_required
 def activityFormView(request, a_id=None):
@@ -325,15 +325,15 @@ def chartView(request, a_id, xaxis, yaxis):
 
 	a = get_object_or_404(Activity, pk=a_id)
 	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
-	rA = get_object_or_404(RateActivity, name=xaxis)
-	rAIs = RateActivityInstance.objects.filter(rateActivity=rA)
 
 	try:
+		# check if axis is a core value of an activity instance
 		x = [getattr(aI, xaxis) for aI in aIs]
 	except:
+		# if above failed, the value is part of Rate Activity
 		try:
 			rA = get_object_or_404(RateActivity, name=xaxis)
-			x = [rAI.rating for rAI in rAIs]
+			x = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
 		except:
 			raise Http404
 	try:
@@ -341,14 +341,17 @@ def chartView(request, a_id, xaxis, yaxis):
 	except:
 		try:
 			rA = get_object_or_404(RateActivity, name=yaxis)
-			y = [rAI.rating for rAI in rAIs]
+			y = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
 		except:
+			print "in second except"
 			raise Http404
-
+	print x
+	print y
 
 	fig, ax = plt.subplots()
 	s = datetime.now()
 	if ('endTime' in xaxis) or ('startTime' in xaxis):
+		print "in this if"
 		ax.plot_date(x, y, '-') #'-' signifies line graph
 		ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #uses strftime
 		fig.autofmt_xdate()
@@ -393,8 +396,17 @@ def chartFormView(request, a_id):
 		form = MyForm(choices=[xaxis, xaxis])
 		return render(request, "form.html", {'form': form})
 
+def searchActivitiesView(request):
+	if request.method=="POST":
+		search_text = request.POST['search_text']
+	else:
+		search_text = ''
+	activities = Activity.objects.filter(name__contains=search_text)
+	return render(request, 'ajax_search.html', {'activities': activities})
 
-
-
+def helpView(request):
+	return render(request, "activity_help.html", {})
+def aboutView(request):
+	return render(request, "activity_about.html", {})
 
 

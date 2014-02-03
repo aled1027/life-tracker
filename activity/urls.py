@@ -18,8 +18,10 @@ urlpatterns = patterns("",
 		url(r'^(?P<a_id>\d+)/instance/(?P<aI_id>\d+)/edit$', activityInstanceEditView, {}, "activityInstance_edit"),
 		url(r'^(?P<a_id>\d+)/instance/(?P<aI_id>\d+)/rate/(?P<r_id>\d+)/instance/(?P<rI_id>\d+)/form/$', rateActivityInstanceFormView, {}, "rateActivityInstance_form"),
 
-		#(r'^staticImage.png$', showStaticImage, {}, "staticImage"),
-		#(r'^(?P<a_id>\d+)/dynamicImage.png$', showDynamicImage, {}, "dynamicImage"),
+		# for charts
 		url(r'^(?P<a_id>\d+)/(?P<xaxis>\w+)/(?P<yaxis>\w+)/chart.png/$', chartView, {}, "chart"),
 		url(r'^(?P<a_id>\d+)/chart-form/$', chartFormView, {}, "chart_form"),
+		url(r'^search/$', searchActivitiesView, {}, "search_activities"),
+		url(r'^help/$', helpView, {}, "activity_help"),
+		url(r'^about/$', aboutView, {}, "activity_about"),
 )

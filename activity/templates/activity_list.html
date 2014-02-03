@@ -3,22 +3,49 @@
 {% block title %} Activities for {{user}} {% endblock title %}
 
 {% block content %}
-<h1> Activities for {{user}} </h1>
-
-	<p><a href="{% url "activity_form" %}">Add a new activity</a></p>
+<div class="row">
+	<h1> Activities for {{user}} </h1>
+</div>
+	<div class="row">
+	<div class="span4">
+		<p> Search Activities</p>
+		{% csrf_token %}
+		<input type="text" id="search" name="search">
+		<ul id="search-results"></ul>
+	</div>
+	<div class="span4">
+		<p><a href="{% url "activity_form" %}">Add a new activity</a></p>
+	</div>
+	</div>
+	<div class="row">
 	{% for activity in activities %}
-	<h3> <a href="{% url "activity_detail" activity.id %}">{{ activity.name }}</a></h3>
+		{% cycle "<div class='row'>" "" %}
+		<div class="span4">
+		<h3> <a href="{% url "activity_detail" activity.id %}">{{ activity.name }}</a></h3>
 		<ul>
-			<li> <a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>. </li>
+			<li> <a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a></li>
 			<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria </a> </li>
-			<b>Rate Activity Criterias </b>
-			<ul>
-				{% for r in activity.rateActivities.all %}
-				<li> <a href="{% url "rateActivity_detail" activity.pk r.pk %}">{{ r.name }}</a></li>
-				{% endfor %}
-			</ul>
+			{% if activity.rateActivities.all.count > 0 %}
+				<b>Rate Activity Criterias:</b>
+				<ul>
+					{% for r in activity.rateActivities.all %}
+						<li> <a href="{% url "rateActivity_detail" activity.pk r.pk %}">{{ r.name }}</a></li>
+					{% endfor %}
+					<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria </a> </li>
+				</ul>
+			{% else %}
+				<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a rating criteria </a> </li>
+			{% endif %}
 		</ul>
+		{% cycle "" "</div>" %}
+	<!-- to change to cols of three:
+		{% cycle "<div class='row'>" "" "" %}
+		<div class="span4">
+		{% cycle "" "" "</div>" %} -->
+	
+		</div>
 	{% endfor %}
+</div>
 {% endblock content %}
 	  
 

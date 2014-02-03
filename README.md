@@ -1,19 +1,13 @@
 To work on:
 
+- Images are not updating immediately. Sometimes they are not updating at all. 
+	What I mean is that /activity/1/startTime/vigor/chart.png will not necessarily display a chart with those axes/data
+	It will display a previously accessed chart in its stead. Even after multiple refreshes, the image is not updating to 
+	reflect the url's parameters
 
-Let's just make a model based on https://docs.djangoproject.com/en/dev/ref/models/fields/ and then make a form with meta: class=thatModel and work from there. I think that should work. 
-
-Although, I'm unsure why this doesn't work. I guess because there is no field for the data to go???
 
 
-2 views. One for template; one with url to image
-
-1. Add graphs
-	http://www.youtube.com/watch?v=zxbCkftGyds
-	http://www.thebigblob.com/making-charts-and-outputing-them-as-images-to-the-browser-in-django/
-	https://blog.dbrgn.ch/2013/9/26/plot-django-registered-users/
-	http://bitsofpy.blogspot.com/2009/07/matplotlib-in-django.html
-	http://matplotlib.org/users/recipes.html
+1. Add html/css/javascript
 2. User download data - mostly working for admin
 	- http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
 3. Add tests

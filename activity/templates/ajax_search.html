@@ -1,0 +1,10 @@
+{% if activities.count > 0 %}
+
+{% for activity in activities %}
+	<li><a href="{% url "activity_detail" activity.id %}"> {{ activity.name }} </a> </li>
+{% endfor %}
+
+{% else %}
+	<li> None to show! </li>
+{% endif %}
+
