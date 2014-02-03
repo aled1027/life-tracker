@@ -8,7 +8,7 @@ from chartit import DataPool, Chart
 
 
 def activityHomeView(request):
-	return render(request, "activity_about.html", {})
+	return render(request, "activity_home.html", {})
 
 @login_required
 def activityFormView(request, a_id=None):
