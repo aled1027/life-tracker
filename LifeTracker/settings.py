@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'p4ng-tam@txpy)o)w*--d1@$*f6hc-e(xm)eb91w96$2c99bw('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -35,6 +35,8 @@ INSTALLED_APPS = (
 	'activity',
 	'taggit',
 	'chartit',
+	'storages',
+	'boto',
 	#'django-extensions',
 )
 
@@ -96,3 +98,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
 		    os.path.join(BASE_DIR, 'static'),
 			)
+
+
+#if not DEBUG:
+#AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+#AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+#AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+#STATIC_URL = S3_URL

@@ -38,3 +38,6 @@ Marketing Ideas:
 	- building on what you've done. Understanding what works -- for you
 		- Improvement happens different for each individual
 		- We all have different needs
+
+
+http://www.realpython.com/blog/python/migrating-your-django-project-to-heroku/#.Uu8_Kd_Tk8o
