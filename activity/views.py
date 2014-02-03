@@ -76,7 +76,6 @@ def rateActivityFormView(request, a_id, r_id=None):
 			instance = form.save() # could do instance = form.save() if I want to access the object
 			return HttpResponseRedirect(reverse('rateActivity_detail', args=(a_id, instance.id)))
 		else:
-			print "couldn't save form in rateActivityFormView"
 			# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
 			# Probably because there is a duplicate.. unique=True on name field
 			return HttpResponseRedirect(reverse("home"))
@@ -110,7 +109,6 @@ def activityInstanceFormView(request, a_id, aI_id=None):
 				new_rI.rateActivity = rateActivity
 				new_rI.save()
 			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, new_activityInstance.id)))
-		print "couldn't save form in activityInstanceFormView"
 		# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
 		# probably a duplication/uniqueness error
 		return HttpResponse(form.errors)
@@ -163,7 +161,6 @@ def rateActivityInstanceFormView(request, a_id, r_id, aI_id, rI_id=None):
 			instance = form.save()
 			return HttpResponseRedirect(reverse('rateActivityInstance_detail', args=(a_id, r_id, instance.id)))
 		else:
-			print "couldn't save form in rateActivityFormView"
 			# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
 			# probably a duplication/uniqueness error
 			return HttpResponseRedirect(reverse("home"))
@@ -207,7 +204,6 @@ def activityInstanceEditView(request, a_id, aI_id):
 				new_rI.rateActivity = rateActivity
 				new_rI.save()
 			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, new_activityInstance.id)))
-		print "couldn't save form in activityInstanceFormView"
 		# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
 		# probably a duplication/uniqueness error
 		return HttpResponse(form.errors)
@@ -343,15 +339,11 @@ def chartView(request, a_id, xaxis, yaxis):
 			rA = get_object_or_404(RateActivity, name=yaxis)
 			y = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
 		except:
-			print "in second except"
 			raise Http404
-	print x
-	print y
 
 	fig, ax = plt.subplots()
 	s = datetime.now()
 	if ('endTime' in xaxis) or ('startTime' in xaxis):
-		print "in this if"
 		ax.plot_date(x, y, '-') #'-' signifies line graph
 		ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #uses strftime
 		fig.autofmt_xdate()
@@ -381,8 +373,6 @@ def chartFormView(request, a_id):
 			form.data['xaxis']
 			return HttpResponseRedirect(reverse('chart', args=(1,form.data['xaxis'], form.data['yaxis'])))
 		else:
-			print "form is invalid"
-			print form.errors
 			return HttpResponseRedirect(reverse('home'))
 	else:
 		activity = get_object_or_404(Activity, pk=a_id)
