@@ -30,7 +30,7 @@ class ActivityInstance(Model):
 	length_hours = IntegerField(default=0, blank=True)
 	length_minutes = IntegerField(default=0, blank=True)
 	length_seconds = IntegerField(default=0, blank=True)
-	duration = IntegerField(default=0, blank=True)
+	duration = IntegerField(default=0, blank=True, help_text="Must be an integer value")
 	isLengthAccurate = BooleanField(default=False)
 	log = TextField(blank=True)
 	activity = ForeignKey(Activity, related_name="activityInstances", blank=True)
@@ -54,12 +54,13 @@ class RateActivityInstance(Model):
 	activityInstance = ForeignKey(ActivityInstance, related_name="rateActivityInstances", blank=True)
 
 	def __unicode__(self):
-		return u"%s: %s" % (self.rateActivity, self.rating)
+		return u"%s: %s" % (self.rateActivity, str(self.rating))
 
 	def save(self, *args, **kwargs):
+		print "in save"
 		if not self.rating:
 			self.rating = None
-		print self.rating
 		super(RateActivityInstance, self).save(*args, **kwargs)
+		print "in rai save"
 
 

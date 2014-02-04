@@ -52,11 +52,11 @@ class ActivityInstanceForm(ModelForm):
 
 class RateActivityInstanceForm(ModelForm):
 	n = "Record a rating"
-	note = "here's the note"
 	class Meta:
 		model = RateActivityInstance
 		exclude = ['rateActivity', 'activityInstance']
 
+# delete this - not needed
 class ChartForm(forms.Form):
 	xaxis = forms.ChoiceField(required=False)
 	#yaxis = forms.ChoiceField(required=False)
@@ -66,6 +66,7 @@ class ChartForm(forms.Form):
 		if "new" in args[0]:
 			self.fields['xaxis'].choices = (('hi', 'hi'),('bye', 'bye'))
 
+# rename this
 class MyForm(forms.Form):
 	def __init__(self, choices, *args, **kwargs):
 		super(MyForm, self).__init__(*args, **kwargs)

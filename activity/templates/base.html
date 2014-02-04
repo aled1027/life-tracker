@@ -3,29 +3,22 @@
 <html lang="en">
 
 <head>
+
 	{% load static %}
-	<!-- For not using Amazon S3 for static hosting
+	{% load staticfiles %}
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}"          media="screen">
-	<link rel="stylesheet" href="{% static "assets/css/default.css" %}"                media="screen">
+	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" media="screen">
+	<link rel="stylesheet" href="{% static "css/styles.css" %}" media="screen">
+	<link rel="stylesheet" href="{% static "css/default.css" %}" media="screen"> 
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 	<script src="{% static "assets/js/ajax.js" %}"></script>
-	-->
-
-	<link rel="stylesheet" href="http://life-tracker.s3-website-us-west-2.amazonaws.com/static/css/bootstrap.min.css" media="screen">
-	<link rel="stylesheet" href="http://life-tracker.s3-website-us-west-2.amazonaws.com/static/css/default.css" media="screen">
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="http://life-tracker.s3-website-us-west-2.amazonaws.com/static/js/bootstrap.min.js"></script>
-	<script src="http://life-tracker.s3-website-us-west-2.amazonaws.com/static/js/ajax.js"></script>
-
 
 	<!-- For other slides images pictures thing
 	<script src="{% static "assets/js/jquery-2.0.0.min.js" %}"></script> 
 	<script src="{% static "assets/js/jquery.slides.min.js" %}"></script>
 	<script src="{% static "assets/js/my-slides-js.js" %}"></script> -->
-	{% load static %}
 	{% block head %}
 	{% endblock head %}
 	<title>{% block title %}LifeTracker{% endblock %}</title>
@@ -58,9 +51,11 @@
 						<li><a href="#">Link 3</a></li>
 					</ul>
 				</li> -->
+			<!-- search button for navbar 
 			<form class="navbar-serach pull-left">
 				<input type="text" class="search-query" placeholder="Search">
 			</form>
+			-->
 			</ul>
 			<ul class="nav pull-right">
 				<li class-"dropdown">

@@ -1,17 +1,17 @@
 To work on:
 
-1. About and help page should really be a part of accounts, not activity app
-2. Create error pages and error related code
+1. Make the forms nicer
 3. Figure out what goes in 
 	- /activity (activity_home.html)
 	- /$ (home.html)
-3. Make the forms nicer
-4. add help_text to django model fields (what does this do?)
-5. Add coooooookies. mmmmm
+3. Add Charts
 6. Add tests
-7. Consider redoing model structure to use inheritance aka abstract base classes in documenation
+
+Other things:
+5. Add coooooookies. mmmmm
 8. User download data - mostly working for admin
 	- http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
+7. Consider redoing model structure to use inheritance aka abstract base classes in documenation
 
 - removing tag functionality. Ask sam if he wants it .. add in later.
 

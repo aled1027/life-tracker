@@ -2,12 +2,16 @@
 {% block title %} {{ form.n }} {% endblock %}
 {% block content %}
 <h1> {{ form.n }}  </h1>
-	{{ form.note }}
-	<form action="" method="POST">
-		{{ form.as_p }}
-		<input type="submit" value="Submit">
-		{% csrf_token %}
-	</form>
+<div class="row">
+	<div class="form">
+		{{ form.note }}
+		<form action="" method="POST">
+			{{ form.as_p }}
+			<input type="submit" value="Submit">
+			{% csrf_token %}
+		</form>
+	</div>
+</div>
 {% endblock content  %}
 	  
 

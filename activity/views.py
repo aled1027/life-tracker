@@ -186,9 +186,12 @@ def activityInstanceEditView(request, a_id, aI_id):
 
 	if request.method == "POST":
 		form = ActivityInstanceForm(request.POST, prefix="aIForm", instance=aI)
-
 		n = len(RateActivity.objects.filter(activity=activity)) # amount of RateActivities for this activity
-		rForms = [RateActivityInstanceForm(request.POST, prefix=str(x), instance=r) for x,r in zip(range(0,n),rS)]
+		#rIs = []
+		#for r in rS:
+			#rIs.append(RateActivityInstance.objects.get(rateActivity=r, activityInstance=aI))
+		rIs = [RateActivityInstance.objects.get(rateActivity=r, activityInstance=aI) for r in rS]
+		rForms = [RateActivityInstanceForm(request.POST, prefix=str(x), instance=rI) for x,rI in zip(range(0,n),rIs)]
 
 		if form.is_valid() and all([rF.is_valid() for rF in rForms]):
 			new_activityInstance = form.save(commit=False)
@@ -202,7 +205,9 @@ def activityInstanceEditView(request, a_id, aI_id):
 				new_rI = rF.save(commit=False)
 				new_rI.activityInstance = new_activityInstance
 				new_rI.rateActivity = rateActivity
-				new_rI.save()
+				new_rI.rating = rF.cleaned_data['rating']
+				new_rI.save() # going wrong here... not saving to database
+				print new_rI
 			return HttpResponseRedirect(reverse('activityInstance_detail', args=(a_id, new_activityInstance.id)))
 		# DO SOMETHING HERE .. WE HAVE AN ERROR SAVING THE FORM
 		# probably a duplication/uniqueness error
@@ -213,12 +218,22 @@ def activityInstanceEditView(request, a_id, aI_id):
 		form = ActivityInstanceForm(instance=aI, prefix="aIForm") # was aI_id
 		rForms = []
 		if aI_id:
+			i = 0
 			for r in rS:
 				# get rate activityInstances of activity
-				rI = RateActivityInstance.objects.get(activityInstance=aI, rateActivity=r)
-				rForm = RateActivityInstanceForm(instance=rI)
-				rForm.name = r.name
-				rForms.append(rForm)
+				try:
+					rI = RateActivityInstance.objects.get(activityInstance=aI, rateActivity=r)
+					rForm = RateActivityInstanceForm(instance=rI, prefix=str(i))
+					rForm.name = r.name
+					rForms.append(rForm)
+				except:
+					rI = RateActivityInstance(rateActivity=r, activityInstance=aI)
+					rI.activityInstance = aI
+					rI.save()
+					rForm = RateActivityInstanceForm(instance=rI, prefix=str(i))
+					rForm.name = r.name
+					rForms.append(rForm)
+				i=i+1
 		else:
 			i = 0
 			for r in rS:

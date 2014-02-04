@@ -7,15 +7,13 @@
 	<h1> Activities for {{user}} </h1>
 </div>
 	<div class="row">
-	<div class="span4">
 		<p> Search Activities</p>
 		{% csrf_token %}
 		<input type="text" id="search" name="search">
 		<ul id="search-results"></ul>
 	</div>
-	<div class="span4">
+	<div class="row">
 		<p><a href="{% url "activity_form" %}">Add a new activity</a></p>
-	</div>
 	</div>
 	<div class="row">
 	{% for activity in activities %}

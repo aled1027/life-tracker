@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from LifeTracker.views import *
+#from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -19,3 +21,6 @@ urlpatterns = patterns('',
 		url(r'^about/$', 'LifeTracker.views.about', name="about"),
 		url(r'^help/$', 'LifeTracker.views.help', name="help"),
 )
+
+#urlpatterns += staticfiles_urlpatterns()
+

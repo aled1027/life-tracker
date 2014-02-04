@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
-{% block title %} Activity Detail {% endblock title %}
+
+{% block title %} {{ activity.name }} {% endblock title %}
 {% block content %}
-<h1> {{activity.name }} </h1>
-	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria</a>
-	</br>
-	<a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>
+<div class="row">
+	<h1> {{activity.name }} </h1>
+		<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria</a>
+		</br>
+		<a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>
+		</br>
+		</br>
+</div>
 
 <div class="row">
-	<div class="col-md-4">
-		here
-	</div>
-	<div class="col-md-8">
-		<ul class="row">
+	<div class="col-md-4"> hi </div>
+	<div class="col-md-4"> hi </div>
+		<ul class="">
 			{% for activityInstance in activity.activityInstances.all %}
-			<li>
 			<ul> 
 				<li> <a href="{% url "activityInstance_detail" activity.id activityInstance.id %}">View activity instance</a></li>
 					{% if activityInstance.isTimeAccurate %}
@@ -32,6 +34,7 @@
 				</ul>
 				</li>
 					{% endif %}
+					<p> should rating criteria stuff here <p>
 				<li> log: <p>{{ activityInstance.log }} </p></li>
 			</ul>
 			</li>
@@ -43,8 +46,4 @@
 			{% endfor %}
 		</ul>
 	</div>
-</div>
-<img src="{% url "chart" activity.pk "startTime" "duration" %}" >
 {% endblock content %}
-	  
-
