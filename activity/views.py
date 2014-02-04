@@ -393,10 +393,3 @@ def searchActivitiesView(request):
 		search_text = ''
 	activities = Activity.objects.filter(name__contains=search_text)
 	return render(request, 'ajax_search.html', {'activities': activities})
-
-def helpView(request):
-	return render(request, "activity_help.html", {})
-def aboutView(request):
-	return render(request, "activity_about.html", {})
-
-

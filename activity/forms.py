@@ -49,7 +49,6 @@ class ActivityInstanceForm(ModelForm):
 			instance.save()
 		return instance
 
-exclude = ['activity', 'hasError']
 
 class RateActivityInstanceForm(ModelForm):
 	n = "Record a rating"

@@ -3,7 +3,7 @@ from activity.views import *
 # change form to create...
 
 urlpatterns = patterns("",
-		url(r'^$', activityHomeView, {}, "home"),
+		url(r'^$', activityHomeView, {}, "activity_home"),
 		url(r'^list/$', activityListView, {}, "activity_list"),
 		url(r'^chart/$', chartsView, {}, "chart"),
 		url(r'^(?P<a_id>\d+)/viewdata/$', activityViewDataView, {}, "activity_viewdata"),
@@ -22,6 +22,4 @@ urlpatterns = patterns("",
 		url(r'^(?P<a_id>\d+)/(?P<xaxis>\w+)/(?P<yaxis>\w+)/chart.png/$', chartView, {}, "chart"),
 		url(r'^(?P<a_id>\d+)/chart-form/$', chartFormView, {}, "chart_form"),
 		url(r'^search/$', searchActivitiesView, {}, "search_activities"),
-		url(r'^help/$', helpView, {}, "activity_help"),
-		url(r'^about/$', aboutView, {}, "activity_about"),
 )

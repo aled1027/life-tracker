@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate
 from forms import MyRegistrationForm
 
 
+def home(request):
+	return render(request, "home.html", {})
 
 def accounts_home(request):
 	return render(request, "accounts_home.html", {})
@@ -23,7 +25,7 @@ def auth_view(request):
 		auth.login(request, user)
 		return HttpResponseRedirect(reverse("accounts"))
 	else:
-		return HttpResponseRedirect('/accounts/invalid')
+		return render(request, "login.html", {'didFail': "true"})
 
 def invalid_login(request):
 	return render(request, 'invalid_login.html')
@@ -55,3 +57,13 @@ def register_error(request):
 def profile_view(request, username):
 	u = get_object_or_404(User, username=username)
 	return render(request, 'profile.html', {'user': u})
+
+def about(request):
+	return render(request, 'about.html', {})
+
+def help(request):
+	return render(request, 'help.html', {})
+
+
+
+

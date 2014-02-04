@@ -1,18 +1,17 @@
 To work on:
 
-About and help page should really be a part of accounts, not activity app
-
-1. Get static files working on heroku server
-	- Use AWS
-	- https://devcenter.heroku.com/articles/s3
-	- http://www.realpython.com/blog/python/migrating-your-django-project-to-heroku/#.Uu8_Kd_Tk8o
-2. Add tests
-3. Create error pages and error related code
-4. Consider redoing model structure to use inheritance aka abstract base classes in documenation
-5. User download data - mostly working for admin
+1. About and help page should really be a part of accounts, not activity app
+2. Create error pages and error related code
+3. Figure out what goes in 
+	- /activity (activity_home.html)
+	- /$ (home.html)
+3. Make the forms nicer
+4. add help_text to django model fields (what does this do?)
+5. Add coooooookies. mmmmm
+6. Add tests
+7. Consider redoing model structure to use inheritance aka abstract base classes in documenation
+8. User download data - mostly working for admin
 	- http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
-6. Add coooooookies. mmmmm
-7. add help_text to django model fields
 
 - removing tag functionality. Ask sam if he wants it .. add in later.
 
@@ -35,4 +34,7 @@ Marketing Ideas:
 		- Improvement happens different for each individual
 		- We all have different needs
 
+FAQ HELP:
 
+500 Error:
+	Did you migrate south? Is it a database issue?

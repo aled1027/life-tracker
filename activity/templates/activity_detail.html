@@ -1,49 +1,50 @@
 {% extends "base.html" %}
+
+{% load staticfiles %}
 {% block title %} Activity Detail {% endblock title %}
 {% block content %}
-<h1> {{activity.name }} Detail </h1>
+<h1> {{activity.name }} </h1>
 	<a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria</a>
 	</br>
 	<a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a>
 
-<ul>
-	{% for activityInstance in activity.activityInstances.all %}
-	<li>
-	<ul> 
-		<li> <a href="{% url "activityInstance_detail" activity.id activityInstance.id %}">View activity instance</a></li>
-			{% if activityInstance.isTimeAccurate %}
-		<li> Start Time: {{activityInstance.startTime}} </li>
-		<li> End Time: {{activityInstance.endTime}} </li>
-			{% endif %}
-			{% if activityInstance.isLengthAccurate %}
-		<li>Length:
-		<ul>
-			<li> Days: {{ activityInstance.length_days }} </li>
-			<li> Hours: {{ activityInstance.length_hours }} </li>
-			<li> Minutes: {{ activityInstance.length_minutes }} </li>
-			<li> Seconds: {{ activityInstance.length_seconds }} </li>
+<div class="row">
+	<div class="col-md-4">
+		here
+	</div>
+	<div class="col-md-8">
+		<ul class="row">
+			{% for activityInstance in activity.activityInstances.all %}
+			<li>
+			<ul> 
+				<li> <a href="{% url "activityInstance_detail" activity.id activityInstance.id %}">View activity instance</a></li>
+					{% if activityInstance.isTimeAccurate %}
+				<li> Start Time: {{activityInstance.startTime}} </li>
+				<li> End Time: {{activityInstance.endTime}} </li>
+					{% endif %}
+					{% if activityInstance.isLengthAccurate %}
+				<li>Length:
+				<ul>
+					<li> Days: {{ activityInstance.length_days }} </li>
+					<li> Hours: {{ activityInstance.length_hours }} </li>
+					<li> Minutes: {{ activityInstance.length_minutes }} </li>
+					<li> Seconds: {{ activityInstance.length_seconds }} </li>
+				</ul>
+				</li>
+					{% endif %}
+				<li> log: <p>{{ activityInstance.log }} </p></li>
+			</ul>
+			</li>
+			{% endfor %}
 		</ul>
-		</li>
-			{% endif %}
-		<li> log: <p>{{ activityInstance.log }} </p></li>
-	</ul>
-	</li>
-	{% endfor %}
-</ul>
-
-
-
-<ul>
-	{% for r in activity.rateActivities.all %}
-	<li> <a href="{% url "rateActivity_detail" activity.id r.id %}"> {{ r.name }} </a></li>
-	{% endfor %}
-</ul>
-
-
-<!-- a graph:::graph:::graph -->
+		<ul>
+			{% for r in activity.rateActivities.all %}
+			<li> <a href="{% url "rateActivity_detail" activity.id r.id %}"> {{ r.name }} </a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
 <img src="{% url "chart" activity.pk "startTime" "duration" %}" >
-		
-	
 {% endblock content %}
 	  
 

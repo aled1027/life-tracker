@@ -37,8 +37,8 @@
 			<ul class="nav">
 				<li class="active"> <a class="brand" href="{% url "home" %}">Life-Tracker</a> </li>
 				<li><a href="{% url "activity_list" %}">My Activities</a></li>
-				<li><a href="{% url "activity_about" %}">About</a></li>
-				<li><a href="{% url "activity_help" %}">Help</a></li>
+				<li><a href="{% url "about" %}">About</a></li>
+				<li><a href="{% url "help" %}">Help</a></li>
 				{% if user.is_authenticated %}
 				<li><a href="{% url "accounts" %}">My Account</a></li>
 				{% else %}
