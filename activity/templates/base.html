@@ -39,7 +39,11 @@
 				<li><a href="{% url "activity_list" %}">My Activities</a></li>
 				<li><a href="{% url "activity_about" %}">About</a></li>
 				<li><a href="{% url "activity_help" %}">Help</a></li>
+				{% if user.is_authenticated %}
+				<li><a href="{% url "accounts" %}">My Account</a></li>
+				{% else %}
 				<li><a href="{% url "login" %}">Sign In</a></li>
+				{% endif %}
 				<!-- For a dropdown menu 
 				<li class="dropdown">
 					<a href="#"

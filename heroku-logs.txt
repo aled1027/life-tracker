@@ -1,0 +1,105 @@
+2014-02-03T21:01:07.627081+00:00 app[web.1]: 2014-02-03 21:01:07 [7] [INFO] Booting worker with pid: 7
+2014-02-03T21:01:07.948926+00:00 heroku[web.1]: State changed from starting to up
+2014-02-03T21:01:38.637123+00:00 heroku[router]: at=info method=GET path=/activity/list/ host=life-tracker.herokuapp.com request_id=2dd18cc6-4c83-4aac-9488-b8cb1a86863b fwd="134.10.123.14" dyno=web.1 connect=6ms service=87ms status=200 bytes=4248
+2014-02-03T21:02:14.512016+00:00 heroku[router]: at=info method=GET path=/activity/ host=life-tracker.herokuapp.com request_id=cb9fc7d7-786c-4695-859c-7baebafa20ca fwd="134.10.123.14" dyno=web.1 connect=10ms service=48ms status=200 bytes=3586
+2014-02-03T21:02:11.121922+00:00 heroku[router]: at=info method=GET path=/activity/about/ host=life-tracker.herokuapp.com request_id=b7491dfd-ccb6-4f8c-81cd-65d0e31a0665 fwd="134.10.123.14" dyno=web.1 connect=5ms service=51ms status=200 bytes=6136
+2014-02-03T21:03:22+00:00 heroku[slug-compiler]: Slug compilation started
+2014-02-03T21:03:48.960292+00:00 heroku[api]: Deploy ad44b30 by a.led1027@gmail.com
+2014-02-03T21:03:48.993698+00:00 heroku[api]: Release v28 created by a.led1027@gmail.com
+2014-02-03T21:03:49+00:00 heroku[slug-compiler]: Slug compilation finished
+2014-02-03T21:03:49.381614+00:00 heroku[web.1]: State changed from up to starting
+2014-02-03T21:01:59.666845+00:00 heroku[router]: at=info method=GET path=/activity/ host=life-tracker.herokuapp.com request_id=3eaaa631-8c85-4555-8598-2061b733cd3e fwd="134.10.123.14" dyno=web.1 connect=11ms service=57ms status=200 bytes=3586
+2014-02-03T21:03:52.121889+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2014-02-03T21:03:52.696555+00:00 app[web.1]: 2014-02-03 21:03:52 [2] [INFO] Handling signal: term
+2014-02-03T21:03:52.697178+00:00 app[web.1]: 2014-02-03 21:03:52 [7] [INFO] Worker exiting (pid: 7)
+2014-02-03T21:03:52.773062+00:00 app[web.1]: 2014-02-03 21:03:52 [2] [INFO] Shutting down: Master
+2014-02-03T21:03:54.096026+00:00 heroku[web.1]: Process exited with status 0
+2014-02-03T21:03:57.941411+00:00 heroku[web.1]: Starting process with command `gunicorn LifeTracker.wsgi`
+2014-02-03T21:03:59.203211+00:00 app[web.1]: 2014-02-03 21:03:59 [2] [INFO] Listening at: http://0.0.0.0:21694 (2)
+2014-02-03T21:03:59.201836+00:00 app[web.1]: 2014-02-03 21:03:59 [2] [INFO] Starting gunicorn 18.0
+2014-02-03T21:03:59.203526+00:00 app[web.1]: 2014-02-03 21:03:59 [2] [INFO] Using worker: sync
+2014-02-03T21:03:59.215961+00:00 app[web.1]: 2014-02-03 21:03:59 [7] [INFO] Booting worker with pid: 7
+2014-02-03T21:02:13.367831+00:00 heroku[router]: at=info method=GET path=/activity/about/ host=life-tracker.herokuapp.com request_id=1b249a31-980d-4fde-8989-51ca648eff97 fwd="134.10.123.14" dyno=web.1 connect=7ms service=59ms status=200 bytes=6136
+2014-02-03T21:03:59.393143+00:00 heroku[web.1]: State changed from starting to up
+2014-02-03T21:04:01.621059+00:00 heroku[router]: at=info method=GET path=/ host=life-tracker.herokuapp.com request_id=9553e464-6552-4c9a-a59d-12282cc357ad fwd="134.10.123.14" dyno=web.1 connect=80ms service=750ms status=200 bytes=3408
+2014-02-03T21:39:22.043837+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=life-tracker.herokuapp.com request_id=3821551f-6006-4fb6-aa9a-deef6ab02af8 fwd="66.87.122.88" dyno=web.1 connect=4ms service=13ms status=404 bytes=96
+2014-02-03T21:39:29.316849+00:00 heroku[router]: at=info method=GET path=/activity/list/ host=life-tracker.herokuapp.com request_id=2736b332-11ce-4e65-931c-c4d291ab15fb fwd="66.87.122.88" dyno=web.1 connect=20ms service=64ms status=302 bytes=5
+2014-02-03T21:39:36.733982+00:00 heroku[router]: at=info method=POST path=/accounts/auth/ host=life-tracker.herokuapp.com request_id=80f8e058-4aa2-48c2-9a75-e496ce4cfbbe fwd="66.87.122.88" dyno=web.1 connect=16ms service=134ms status=302 bytes=5
+2014-02-03T21:39:38.611122+00:00 heroku[router]: at=info method=GET path=/accounts/invalid/ host=life-tracker.herokuapp.com request_id=66b3ad78-40d9-43b0-a7b7-dbb57e233542 fwd="66.87.122.88" dyno=web.1 connect=2ms service=10ms status=200 bytes=3235
+2014-02-03T21:40:03.704744+00:00 heroku[router]: at=info method=GET path=/accounts/invalid/ host=life-tracker.herokuapp.com request_id=5beecf52-322b-42b8-93b3-9a1b0895138c fwd="66.87.122.88" dyno=web.1 connect=3ms service=9ms status=200 bytes=3235
+2014-02-03T21:40:24.080450+00:00 heroku[router]: at=info method=POST path=/accounts/auth/ host=life-tracker.herokuapp.com request_id=b33020ec-a838-4d08-bfa4-4be91098ffe0 fwd="66.87.122.88" dyno=web.1 connect=10ms service=114ms status=302 bytes=5
+2014-02-03T21:40:03.309032+00:00 heroku[router]: at=info method=GET path=/accounts/invalid host=life-tracker.herokuapp.com request_id=3912b412-9f1d-41b9-940b-61ede22f46fa fwd="66.87.122.88" dyno=web.1 connect=2ms service=6ms status=301 bytes=5
+2014-02-03T21:40:03.013920+00:00 heroku[router]: at=info method=POST path=/accounts/auth/ host=life-tracker.herokuapp.com request_id=922437b9-b861-4e4a-b063-c85191729461 fwd="66.87.122.88" dyno=web.1 connect=7ms service=134ms status=302 bytes=5
+2014-02-03T21:40:11.717306+00:00 heroku[router]: at=info method=GET path=/accounts/login/ host=life-tracker.herokuapp.com request_id=395858f2-6b05-48b6-b92d-41d18ac977bc fwd="66.87.122.88" dyno=web.1 connect=1ms service=79ms status=200 bytes=3579
+2014-02-03T21:41:15.468341+00:00 heroku[router]: at=info method=GET path=/accounts/login/ host=life-tracker.herokuapp.com request_id=1aca7fa5-769f-47f1-a05a-19e882e46fdd fwd="66.87.122.88" dyno=web.1 connect=4ms service=10ms status=200 bytes=3579
+2014-02-03T21:41:29.511763+00:00 heroku[router]: at=info method=GET path=/accounts/invalid/ host=life-tracker.herokuapp.com request_id=a6153ed1-1f9e-4d25-95a4-9e0d3468436b fwd="66.87.122.88" dyno=web.1 connect=9ms service=15ms status=200 bytes=3235
+2014-02-03T21:39:37.564175+00:00 heroku[router]: at=info method=GET path=/accounts/invalid host=life-tracker.herokuapp.com request_id=324c130e-e261-418e-911e-a17
+d3072ea0b fwd="66.87.122.88" dyno=web.1 connect=36ms service=74ms status=301 bytes=5
+2014-02-03T21:40:24.749981+00:00 heroku[router]: at=info method=GET path=/accounts/invalid host=life-tracker.herokuapp.com request_id=a6916700-96a3-47ea-976a-c8797554e5e0 fwd="66.87.122.88" dyno=web.1 connect=37ms service=52ms status=301 bytes=5
+2014-02-03T21:41:01.632340+00:00 heroku[router]: at=info method=GET path=/activity/ host=life-tracker.herokuapp.com request_id=a1a7af9c-2f7f-495c-9924-e9d8879984b3 fwd="66.87.122.88" dyno=web.1 connect=2ms service=10ms status=200 bytes=3413
+2014-02-03T22:12:37.591734+00:00 heroku[router]: at=info method=GET path=/admin host=life-tracker.herokuapp.com request_id=09c3c3e4-47be-49af-b2bc-c38bbf2a7190 fwd="134.10.123.14" dyno=web.1 connect=3ms service=262ms status=301 bytes=5
+2014-02-03T22:12:37.891447+00:00 heroku[router]: at=info method=GET path=/admin/ host=life-tracker.herokuapp.com request_id=4d2b35f9-2ea6-4822-9594-fc490c62914f fwd="134.10.123.14" dyno=web.1 connect=1ms service=162ms status=200 bytes=5764
+2014-02-03T22:12:38.217468+00:00 heroku[router]: at=info method=GET path=/static/admin/css/dashboard.css host=life-tracker.herokuapp.com request_id=67409213-c59d-4d5d-887a-da26a7e05c11 fwd="134.10.123.14" dyno=web.1 connect=3ms service=16ms status=404 bytes=115
+2014-02-03T22:12:38.149559+00:00 heroku[router]: at=info method=GET path=/static/admin/css/base.css host=life-tracker.herokuapp.com request_id=519a50a8-13ad-4d85-bc6d-0b1372394b17 fwd="134.10.123.14" dyno=web.1 connect=6ms service=11ms status=404 bytes=110
+2014-02-03T22:12:44.220165+00:00 heroku[router]: at=info method=GET path=/static/admin/js/core.js host=life-tracker.herokuapp.com request_id=8a0bdcc2-518f-4448-90b9-bee4e1ae7e30 fwd="134.10.123.14" dyno=web.1 connect=12ms service=21ms status=404 bytes=108
+2014-02-03T22:12:44.248255+00:00 heroku[router]: at=info method=GET path=/static/admin/js/admin/RelatedObjectLookups.js host=life-tracker.herokuapp.com request_id=47c4360c-2ddd-4df7-820f-b632c381acd4 fwd="134.10.123.14" dyno=web.1 connect=1ms service=10ms status=404 bytes=130
+2014-02-03T22:12:44.285896+00:00 heroku[router]: at=info method=GET path=/static/admin/js/actions.min.js host=life-tracker.herokuapp.com request_id=4d4c8a06-7320-43d5-bd47-f9a15cd500c2 fwd="134.10.123.14" dyno=web.1 connect=5ms service=10ms status=404 bytes=115
+2014-02-03T22:12:44.174738+00:00 heroku[router]: at=info method=GET path=/static/admin/css/changelists.css host=life-tracker.herokuapp.com request_id=53c601bd-4bd8-4760-b47d-ae98e10dd98f fwd="134.10.123.14" dyno=web.1 connect=3ms service=10ms status=404 bytes=117
+2014-02-03T22:12:44.427696+00:00 heroku[router]: at=info method=GET path=/admin/jsi18n/ host=life-tracker.herokuapp.com request_id=841b3d48-379c-414c-b32e-cf71488100f3 fwd="134.10.123.14" dyno=web.1 connect=14ms service=96ms status=200 bytes=2384
+2014-02-03T22:12:44.269
+024+00:00 heroku[router]: at=info method=GET path=/static/admin/js/jquery.init.js host=life-tracker.herokuapp.com request_id=fa4fbf42-9dc2-45e5-ad99-c872ddb1c418 fwd="134.10.123.14" dyno=web.1 connect=7ms service=8ms status=404 bytes=115
+2014-02-03T22:12:44.659284+00:00 heroku[router]: at=info method=GET path=/static/admin/img/icon-no.gif host=life-tracker.herokuapp.com request_id=074f7981-ee1c-4d6d-9202-6b16f6286465 fwd="134.10.123.14" dyno=web.1 connect=2ms service=6ms status=404 bytes=113
+2014-02-03T22:12:44.660802+00:00 heroku[router]: at=info method=GET path=/static/admin/img/icon-yes.gif host=life-tracker.herokuapp.com request_id=189b3229-33bf-4fe8-8845-ffcaa40c29f6 fwd="134.10.123.14" dyno=web.1 connect=2ms service=15ms status=404 bytes=114
+2014-02-03T22:12:44.254566+00:00 heroku[router]: at=info method=GET path=/static/admin/js/jquery.min.js host=life-tracker.herokuapp.com request_id=4eef8836-4526-45ac-8cad-6d013c9404a7 fwd="134.10.123.14" dyno=web.1 connect=2ms service=8ms status=404 bytes=114
+2014-02-03T22:12:52.575414+00:00 heroku[router]: at=info method=GET path=/admin/auth/user/3/ host=life-tracker.herokuapp.com request_id=98ac5858-fc64-48e7-b640-a664958b1d0e fwd="134.10.123.14" dyno=web.1 connect=3ms service=179ms status=200 bytes=14623
+2014-02-03T22:12:52.735457+00:00 heroku[router]: at=info method=GET path=/static/admin/css/base.css host=life-tracker.herokuapp.com request_id=ca0f87f7-ed89-44bd-a287-6d65ec7e83
+aa fwd="134.10.123.14" dyno=web.1 connect=7ms service=11ms status=404 bytes=110
+2014-02-03T22:12:52.852233+00:00 heroku[router]: at=info method=GET path=/static/admin/js/actions.min.js host=life-tracker.herokuapp.com request_id=80fb14f4-43ae-4f55-aeb4-05ca8813a0cc fwd="134.10.123.14" dyno=web.1 connect=2ms service=8ms status=404 bytes=115
+2014-02-03T22:12:52.987804+00:00 heroku[router]: at=info method=GET path=/static/admin/js/admin/DateTimeShortcuts.js host=life-tracker.herokuapp.com request_id=24465a8a-68dd-4b9a-b7f7-3c17dd1d06b6 fwd="134.10.123.14" dyno=web.1 connect=3ms service=29ms status=404 bytes=127
+2014-02-03T22:12:52.993687+00:00 heroku[router]: at=info method=GET path=/static/admin/img/icon_addlink.gif host=life-tracker.herokuapp.com request_id=050eab81-6920-4b25-b1a3-8fc3446c1e31 fwd="134.10.123.14" dyno=web.1 connect=4ms service=31ms status=404 bytes=118
+2014-02-03T22:12:52.744079+00:00 heroku[router]: at=info method=GET path=/static/admin/js/admin/RelatedObjectLookups.js host=life-tracker.herokuapp.com request_id=ec1ad00c-5095-4996-a714-f52b05d443ce fwd="134.10.123.14" dyno=web.1 connect=2ms service=7ms status=404 bytes=130
+2014-02-03T22:12:53.061513+00:00 heroku[router]: at=info method=GET path=/static/admin/js/calendar.js host=life-tracker.herokuapp.com request_id=2dd2439b-726d-4128-aac7-4575f2290673 fwd="134.10.123.14" dyno=web.1 connect=11ms service=9ms status=404 bytes=112
+2014-02-03T22:12:52.858465+00:00 heroku[router]: at=info method=GET path=/static/admin/js/SelectBox.js host=life-tracker.herokuapp.com request_id=05d6ce82-2dda-45e5-bbb6-836e91dbcadd fwd="134.10.123.14" dyno=web.1 connect=5ms service=7ms status=404 bytes=113
+2014-02-03T22:12:52.757697+00:00 heroku[router]: at=info method=GET path=/static/admin/js/core.js host=life-tracker.herokuapp.com request_id=24c4f9e9-6ab0-41d2-bcc3-26d8283a2112 fwd="134.10.123.14" dyno=web.1 connect=7ms service=12ms status=404 bytes=108
+2014-02-03T22:12:52.855293+00:00 heroku[router]: at=info method=GET path=/static/admin/js/SelectFilter2.js host=life-tracker.herokuapp.com request_id=63659732-09ba-4df1-ab15-29c283a138c4 fwd="134.10.123.14" dyno=web.1 connect=3ms service=9ms status=404 bytes=117
+2014-02-03T22:12:53.024905+00:00 heroku[router]: at=info method=GET path=/static/admin/js/jquery.init.js host=life-tracker.herokuapp.com request_id=b5bb34ef-de6f-49cc-8365-65c3cf20ea48 fwd="134.10.123.14" dyno=web.1 connect=62ms service=115ms status=404 bytes=115
+2014-02-03T22:13:34.077858+00:00 heroku[router]: at=info method=GET path=/accounts/ host=life-tracker.herokuapp.com request_id=b5069a1b-433f-4c59-8bff-a87b23a821c1 fwd="134.10.123.14" dyno=web.1 connect=5ms service=63ms status=200 bytes=3753
+2014-02-03T22:13:37.566472+00:00 heroku[router]: at=info method=GET path=/accounts/register/ host=life-tracker.herokuapp.com request_id=f4bba3c1-8fea-4667-ad26-54d8a6c33ba7 fwd="134.10.123.14" dyno=web.1 connect=2ms service=16ms status=200 bytes=4022
+2014-02-03T22:13:54.548113+00:00 heroku[router]: at=info method=GET path=/activity/list/ host=life-tracker.herokuapp.com request_id=c989eb46-833a-4ada-a11d-8dc6973fb26e fwd="134.10.123.14" dyno=web.1 connect=6ms service=100ms status=200 bytes=4248
+2014-02-03T22:13:43.533705+00:00 heroku[router]: at=info method=GET path=/accounts/register/ host=life-tracker.herokuapp.com request_id=fdd685aa-5ab3-42b4-8438-5ca073f96b0e fwd="66.220.158.118" dyno=web.1 connect=14ms service=27ms status=200 bytes=4022
+2014-02-03T22:13:30.118277+00:00 heroku[router]: at=info method=GET path=/accounts/login/ host=life-tracker.herokuapp.com request_id=7e33caa0-221a-4070-852b-c73ddd8c45f9 fwd="134.10.123.14" dyno=web.1 connect=2ms service=16ms status=200 bytes=3579
+2014-02-03T22:12:52.846026+00:00 heroku[router]: at=info method=GET path=/static/admin/js/jquery.min.js host=life-tracker.herokuapp.com request_id=c8fd74fc-b872-471d-b720-c1d2a56b26c1 fwd="134.10.123.14" dyno=web.1 connect=2ms service=10ms status=404 bytes=114
+2014-02-03T22:35:50.235337+00:00 heroku[router]: at=info method=GET path=/accounts/register host=life-tracker.herokuapp.com request_id=9e2a94d5-ddc6-4339-bbf6-ab2d34dcd89e fwd="66.220.158.118" dyno=web.1 connect=4ms service=11ms status=301 bytes=5
+2014-02-03T22:35:51.739556+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=life-tracker.herokuapp.com request_id=f0c89de3-aa5a-4163-bcd2-81e3cd1854f7 fwd="129.171.248.207" dyno=web.1 connect=2ms service=4ms status=404 bytes=96
+2014-02-03T22:36:05.265237+00:00 heroku[router]: at=info method=GET path=/accounts/register_success/ host=life-tracker.herokuapp.com request_id=538f9136-6749-4ead-99aa-3ea688a29547 fwd="129.171.248.207" dyno=web.1 connect=10ms service=24ms status=200 bytes=3248
+2014-02-03T22:36:51.765571+00:00 heroku[router]: at=info method=GET path=/activity/list/ host=life-tracker.herokuapp.com request_id=69d3d146-2da1-4a88-8030-9994b57daebd fwd="129.171.248.207" dyno=web.1 connect=0ms service=40ms status=302 bytes=5
+2014-02-03T22:37:10.003817+00:00 heroku[router]: at=info method=GET path=/activity/new-activity/ host=life-tracker.herokuapp.com request_id=5fd88ee5-c37a-44c5-a041-6e5133f10f60 fwd="129.171.248.207" dyno=web.1 connect=62ms service=192ms status=200 bytes=3517
+2014-02-03T22:37:19.416461+00:00 heroku[router]: at=info method=POST path=/activity/new-activity/ host=life-tracker.herokuapp.com request_id=28c204c5-c5b0-42c9-bfe0-b1b738f8f155 fwd="129.171.248.207" dyno=web.1 connect=8ms service=48ms status=302 bytes=5
+2014-02-03T22:38:05.389013+00:00 heroku[router]: at=info method=POST path=/activity/3/instance/ host=life-tracker.herokuapp.com request_id=78c0bc7e-e7a0-41b7-859a-48d1ccf93891 fwd="129.171.248.207" dyno=web.1 connect=3ms service=163ms status=500 bytes=38
+2014-02-03T22:36:52.109751+00:00 heroku[router]: at=info method=GET path=/accounts/login/?next=/activity/list/ host=life-tracker.herokuapp.com request_id=39424089-aa37-4461-b351-e1460f12bdba fwd="129.171.248.207" dyno=web.1 connect=10ms service=280ms status=200 bytes=3579
+2014-02-03T22:36:49.693575+00:00 heroku[router]: at=info method=GET path=/accounts/login/?next=/activity/list/ host=life-tracker.herokuapp.com request_id=c0c9267d-5269-4b57-abe3-431719a0d497 fwd="129.171.248.207" dyno=web.1 connect=1ms service=9ms status=200 bytes=3579
+2014-02-03T22:41:40.108198+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=life-tracker.herokuapp.com request_id=d6d3634c-4eab-47d1-b854-1827f353941f fwd="129.171.233.72" dyno=web.1 connect=4ms service=5ms status=404 bytes=96
+2014-02-03T22:40:24.130271+00:00 heroku[router]: at=info method=GET path=/activity/ host=life-tracker.herokuapp.com request_id=8f87237d-5e91-435c-9799-aef44191d700 fwd="129.171.248.207" dyno=web.1 connect=1ms service=55ms status=200 bytes=3405
+2014-02-03T23:12:19.879949+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=life-tracker.herokuapp.com request_id=3ee366f6-23dd-4080-9b93-1edbcdcb602f fwd="129.171.233.72" dyno=web.1 connect=3ms service=8ms status=404 bytes=96
+2014-02-04T00:16:00.640999+00:00 heroku[web.1]: Idling
+2014-02-04T00:16:00.642039+00:00 heroku[web.1]: State changed from up to down
+2014-02-04T00:16:03.194573+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2014-02-04T00:16:03.74103
+9+00:00 app[web.1]: 2014-02-04 00:16:03 [7] [INFO] Worker exiting (pid: 7)
+2014-02-04T00:16:03.798527+00:00 app[web.1]: 2014-02-04 00:16:03 [2] [INFO] Handling signal: term
+2014-02-04T00:16:03.920803+00:00 app[web.1]: 2014-02-04 00:16:03 [2] [INFO] Shutting down: Master
+2014-02-04T00:16:05.243211+00:00 heroku[web.1]: Process exited with status 0
+2014-02-04T01:53:26.386618+00:00 heroku[web.1]: Starting process with command `gunicorn LifeTracker.wsgi`
+2014-02-04T01:53:28.151928+00:00 app[web.1]: 2014-02-04 01:53:28 [2] [INFO] Starting gunicorn 18.0
+2014-02-04T01:53:28.153798+00:00 app[web.1]: 2014-02-04 01:53:28 [2] [INFO] Listening at: http://0.0.0.0:5232 (2)
+2014-02-04T01:53:28.153982+00:00 app[web.1]: 2014-02-04 01:53:28 [2] [INFO] Using worker: sync
+2014-02-04T01:53:28.166468+00:00 app[web.1]: 2014-02-04 01:53:28 [7] [INFO] Booting worker with pid: 7
+2014-02-04T01:53:28.329614+00:00 heroku[web.1]: State changed from starting to up
+2014-02-04T01:53:33.529478+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=life-tracker.herokuapp.com request_id=230c2ecc-39de-46dc-a26d-61f0077cf272 fwd="67.166.81.173" dyno=web.1 connect=2ms service=7ms status=404 bytes=96
+2014-02-04T01:53:46.833911+00:00 heroku[router]: at=info method=GET path=/activity/1/instance/ host=life-tracker.herokuapp.com request_id=0feaca17-e181-4ae1-b979-8e5f0e06f0cb fwd="67.166.81.173" dyno=web.1 connect=44ms service=150ms status=200 bytes=5319
+2014-02-04T01:53:30.069866+00:00 heroku[router]: at=info method=GET path=/activity host=life-tracker.herokuapp.com request_id=05b7c68e-a010-4dc7-bc6c-29fbc3a26b68 fwd="67.166.81.173" dyno=web.1 connect=2ms service=495ms status=301 bytes=5
+2014-02-04T01:53:16.816380+00:00 heroku[web.1]: Unidling
+2014-02-04T01:53:16.816380+00:00 heroku[web.1]: State changed from down to starting
+2014-02-04T01:54:05.714946+00:00 heroku[router]: at=info method=POST path=/activity/1/instance/ host=life-tracker.herokuapp.com request_id=f0a61eea-0ee2-4b4b-8c8b-4ebc1f1e5318 fwd="67.166.81.173" dyno=web.1 connect=1ms service=143ms status=500 bytes=38
+2014-02-04T01:57:17.471097+00:00 heroku[router]: at=info method=GET path=/activity/1/instance/ host=life-tracker.herokuapp.com request_id=2c1a5144-fda6-441b-927d-403b3a26e5b3 fwd="67.166.81.173" dyno=web.1 connect=44ms service=280ms status=200 bytes=5319
+2014-02-04T01:57:22.184203+00:00 heroku[router]: at=info method=POST path=/activity/1/instance/ host=life-tracker.herokuapp.com request_id=d9d91280-0f2a-4428-b0af-12428aaf890e fwd="67.166.81.173" dyno=web.1 connect=3ms service=148ms status=500 bytes=38

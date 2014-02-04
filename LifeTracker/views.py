@@ -21,12 +21,9 @@ def auth_view(request):
 	user = authenticate(username=username, password=password)
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect('/accounts/loggedin')
+		return HttpResponseRedirect(reverse("accounts"))
 	else:
 		return HttpResponseRedirect('/accounts/invalid')
-
-def loggedin(request):
-	return render(request, 'loggedin.html', {'full_name': request.user.username})
 
 def invalid_login(request):
 	return render(request, 'invalid_login.html')

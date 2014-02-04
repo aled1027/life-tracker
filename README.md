@@ -1,5 +1,7 @@
 To work on:
 
+About and help page should really be a part of accounts, not activity app
+
 1. Get static files working on heroku server
 	- Use AWS
 	- https://devcenter.heroku.com/articles/s3
