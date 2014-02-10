@@ -22,7 +22,6 @@
 		<h3> <a href="{% url "activity_detail" activity.id %}">{{ activity.name }}</a></h3>
 		<ul>
 			<li> <a href="{% url "activityInstance_form"  activity.pk  %}"> Record an instance of this activity </a></li>
-			<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a new rating criteria </a> </li>
 			{% if activity.rateActivities.all.count > 0 %}
 				<b>Rate Activity Criterias:</b>
 				<ul>
@@ -34,13 +33,15 @@
 			{% else %}
 				<li> <a href="{% url "rateActivity_form"  activity.pk  %}"> Add a rating criteria </a> </li>
 			{% endif %}
+			<a href="{% url "chart_form" activity.pk %}">View chart</a>
 		</ul>
 		{% cycle "" "</div>" %}
+
 	<!-- to change to cols of three:
 		{% cycle "<div class='row'>" "" "" %}
 		<div class="span4">
 		{% cycle "" "" "</div>" %} -->
-	
+
 		</div>
 	{% endfor %}
 </div>

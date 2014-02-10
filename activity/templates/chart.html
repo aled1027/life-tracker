@@ -1,17 +1,46 @@
 {% extends "base.html" %}
 
-{% block head %} 
-     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-     <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
-     <script src="/highcharts.js" type="text/javascript"></script>
-     {% load chartit %}
-     {{ chart|load_charts:"container" }}
-{% endblock head %}
 {% block title %} Chart {% endblock title %}
-{% block content %}
-	<h1> Chart </h1>
-	<!-- <div id='container'> Chart will be rendered here </div> this is for django-chartit chart, which I'm not using -->
-	<img src="../1/dynamicImage.png" width="500px">
-{% endblock content  %}
-	  
 
+{% block head %}
+	<script type="text/javascript">
+	$(window).load(function() {
+
+	$(function() {
+		//data_points = {{ data_points }};
+		//widget.init(data_points);
+		//var d1 = [];
+		//for (var i = 0; i < 14; i += 0.5) {
+		//	d1.push([i, Math.sin(i)]);
+		//}
+
+		//var d2 = [[0, 3], [4, 8], [8, 5], [9, 13]];
+
+		// A null signifies separate line segments
+
+		//var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
+		//var d3 = eval('(' + '{{ js_data }}' + ')');
+		var d3 = {{ js_data }}
+
+
+		//$.plot("#placeholder", [d3]);
+		$.plot("#placeholder", [ d3 ]);
+
+		// Add the Flot version string to the footer
+
+		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+	});
+	});
+	</script>
+	{% endblock %}
+
+	{% block content %}
+	<h2>Basic Usage</h2>
+
+	<div id="placeholder" style="width:600px;height:300px;"></div>
+
+
+	<div id="footer">
+		Copyright &copy; 2007 - 2013 IOLA and Ole Laursen
+	</div>
+	{% endblock %}

@@ -1,17 +1,17 @@
 To work on:
 
 1. Make the forms nicer
-3. Figure out what goes in 
+2. Figure out what goes in 
 	- /activity (activity_home.html)
 	- /$ (home.html)
 3. Add Charts
-6. Add tests
+4. Add tests
 
 Other things:
-5. Add coooooookies. mmmmm
-8. User download data - mostly working for admin
+- Add coooooookies. mmmmm
+- User download data - mostly working for admin
 	- http://djangotricks.blogspot.com/2013/12/how-to-export-data-as-excel.html
-7. Consider redoing model structure to use inheritance aka abstract base classes in documenation
+- Consider redoing model structure to use inheritance aka abstract base classes in documenation
 
 - removing tag functionality. Ask sam if he wants it .. add in later.
 

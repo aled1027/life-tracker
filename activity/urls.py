@@ -19,7 +19,7 @@ urlpatterns = patterns("",
 		url(r'^(?P<a_id>\d+)/instance/(?P<aI_id>\d+)/rate/(?P<r_id>\d+)/instance/(?P<rI_id>\d+)/form/$', rateActivityInstanceFormView, {}, "rateActivityInstance_form"),
 
 		# for charts
-		url(r'^(?P<a_id>\d+)/(?P<xaxis>\w+)/(?P<yaxis>\w+)/chart.png/$', chartView, {}, "chart"),
+		url(r'^(?P<a_id>\d+)/(?P<xaxis>\w+)/(?P<yaxis>\w+)/chart/$', chartView, {}, "chart"),
 		url(r'^(?P<a_id>\d+)/chart-form/$', chartFormView, {}, "chart_form"),
 		url(r'^search/$', searchActivitiesView, {}, "search_activities"),
 )

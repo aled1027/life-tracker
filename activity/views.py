@@ -322,7 +322,7 @@ def showDynamicImage(request, a_id):
 
 # http://stackoverflow.com/questions/17987468/custom-date-range-x-axis-in-time-series-with-matplotlib
 
-def chartView(request, a_id, xaxis, yaxis):
+def oldChartView(request, a_id, xaxis, yaxis):
 	# capital letters matter for query of rateActivity
 
 	# TODO:
@@ -381,6 +381,43 @@ def chartView(request, a_id, xaxis, yaxis):
 	canvas.print_png(response)
 	return response
 
+def chartView(request, a_id, xaxis, yaxis):
+	#from django.utils import simplejson
+	import simplejson as simplejson
+	args = {}
+	# get data
+	a = get_object_or_404(Activity, pk=a_id)
+	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
+
+	try:
+		# check if axis is a core value of an activity instance
+		xs = [getattr(aI, xaxis) for aI in aIs]
+	except:
+		# if above failed, the value is part of a Rate Activity
+		try:
+			rA = get_object_or_404(RateActivity, name=xaxis)
+			xs = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
+		except:
+			raise Http404
+	try:
+		ys = [getattr(aI, yaxis) for aI in aIs]
+	except:
+		# if above failed, the value is part of a Rate Activity
+		try:
+			rA = get_object_or_404(RateActivity, name=yaxis)
+			ys = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
+		except:
+			raise Http404
+	#make data points
+	data = []
+	# need to ensure that x and y are same size..
+	for x,y in zip(xs,ys):
+		data.append([x,y])
+
+	#js_data = simplejson.dumps({"data_points": data})
+
+	return render(request, "chart.html", {"js_data": data})
+
 def chartFormView(request, a_id):
 	if request.method == 'POST':
 		form = MyForm(None, request.POST)
@@ -388,6 +425,7 @@ def chartFormView(request, a_id):
 			form.data['xaxis']
 			return HttpResponseRedirect(reverse('chart', args=(1,form.data['xaxis'], form.data['yaxis'])))
 		else:
+			pass
 			return HttpResponseRedirect(reverse('home'))
 	else:
 		activity = get_object_or_404(Activity, pk=a_id)

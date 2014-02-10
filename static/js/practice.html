@@ -1,11 +1,15 @@
-{% extends "base.html" %}
 
-{% block title %} Activities for {{user}} {% endblock title %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="jquery-2.0.0.min.js"></script>
+	<script type="text/javascript" src="jquery.flot.js"></script>
+	<!--	<script type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.js"></script> -->
 
-{% block head %}
 	<script type="text/javascript">
-	$(window).load(function() {
 
+	$(window).load(function() {
 	$(function() {
 
 		var d1 = [];
@@ -19,21 +23,18 @@
 
 		var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
 
-		$.plot("#placeholder", [ d1, d2, d3 ]);
+		$.plot(("#placeholder"), [ d1, d2, d3]);
 
-		// Add the Flot version string to the footer
-
-		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
 	});
 	});
+
 	</script>
-	{% endblock %}
+</head>
+<body>
 
-	{% block content %}
 	<div id="header">
 		<h2>Basic Usage</h2>
 	</div>
-
 
 	<div id="placeholder" style="width:600px;height:300px;"></div>
 
@@ -46,4 +47,6 @@
 	<div id="footer">
 		Copyright &copy; 2007 - 2013 IOLA and Ole Laursen
 	</div>
-	{% endblock %}
+
+</body>
+</html>
