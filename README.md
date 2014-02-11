@@ -1,11 +1,12 @@
-To work on:
+Finish site by this friday. Start new project. 
 
-1. Make the forms nicer
-2. Figure out what goes in 
-	- /activity (activity_home.html)
-	- /$ (home.html)
-3. Add Charts
-4. Add tests
+1. Make a getting started page
+2. Fix register user
+3. Make css for forms nicer
+4. Finish up all forms
+5. Finish charts
+
+4. Add tests?
 
 Other things:
 - Add coooooookies. mmmmm

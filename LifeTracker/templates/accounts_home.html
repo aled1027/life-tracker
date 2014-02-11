@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %} Accounts Home {% endblock %}
+{% block title %} Life-tracker {% endblock %}
 
 {% block content %}
-<h2>  Accounts Home </h2>
+<h2>  Life-tracker </h2>
 <ul>
 	{% if not user.is_authenticated %}
 		<li><a href="{% url "login" %}">Login</a></li> 

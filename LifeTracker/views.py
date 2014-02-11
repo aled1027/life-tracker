@@ -65,5 +65,7 @@ def help(request):
 	return render(request, 'help.html', {})
 
 
+def gettingStarted(request):
+	return render(request, "gettingStarted.html", {})
 
 

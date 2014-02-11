@@ -20,7 +20,5 @@ urlpatterns = patterns('',
 
 		url(r'^about/$', 'LifeTracker.views.about', name="about"),
 		url(r'^help/$', 'LifeTracker.views.help', name="help"),
+		url(r'^getting-started/$', 'LifeTracker.views.gettingStarted', name="getting_started"),
 )
-
-#urlpatterns += staticfiles_urlpatterns()
-

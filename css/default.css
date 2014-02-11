@@ -1,0 +1,27 @@
+nav {
+	padding-top: 10px;
+}
+body {
+	padding-top: 70px;
+}
+ul, li{
+    list-style:none;
+    list-style-type:none;
+}
+form {
+}
+
+// --------------for home.html -------------//
+
+.stripe {
+  width: 0px;
+  height: 0px;
+  border-right: 60px solid transparent;
+  border-top: 60px solid red;
+  border-left: 60px solid red;
+  border-bottom: 60px solid red;
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+}

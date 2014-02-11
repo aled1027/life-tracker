@@ -5,7 +5,6 @@ from activity.views import *
 urlpatterns = patterns("",
 		url(r'^$', activityHomeView, {}, "activity_home"),
 		url(r'^list/$', activityListView, {}, "activity_list"),
-		url(r'^chart/$', chartsView, {}, "chart"),
 		url(r'^(?P<a_id>\d+)/viewdata/$', activityViewDataView, {}, "activity_viewdata"),
 		url(r'^new-activity/(?P<pk>\d+)/$', activityFormView, {}, "activity_form"),
 		url(r'^new-activity/$', activityFormView, {}, "activity_form"),

@@ -1,9 +1,47 @@
 {% extends "base.html" %}
 
-{% block title %} Accounts Home {% endblock %}
-
+{% block title %} Life-tracker {% endblock %}
+{% block head %} 
+	{% load static %}
+	<link rel="stylesheet" href="{% static "css/homePage.css" %}" media="screen">
+	<script>
+		$(document).mousemove(function(e){
+			var offsets = $('#figure1').offset();
+			//if (offsets.left <= 270) {
+			if ((e.pageX > 275) && (e.pageX < 1135)) {
+		    	$("#figure1").css({left:e.pageX});
+			}
+		});
+	</script>
+{% endblock head %}
 {% block content %}
-<h2>  Accounts Home </h2>
+<h2>  Life-tracker </h2>
+<div id="clouds">
+	<div class="cloud x1"></div>
+	<!-- Time for multiple clouds to dance around -->
+	<div class="cloud x2"></div>
+	<div class="cloud x3"></div>
+	<div class="cloud x4"></div>
+	<div class="cloud x5"></div>
+</div>
+<div id="grass">
+	<a style="display:block" href="{% url "getting_started" %}">
+	<div class="fir">
+		<div class="fir__item"></div>
+		<div class="fir__item"></div>
+		<div class="fir__item"></div>
+		<div class="fir__log"></div>
+	</div>
+</a>
 
-<p> Home page for site. What the fuck goes here? </p>
+</div>
+<div id="figure1" class="stick">
+	<div class="head">Alex</div>
+	<div class="body"></div>
+	<div class="lefthand part"><div></div></div>
+	<div class="righthand part"><div></div></div>
+	<div class="leftfoot part"><div></div></div>
+	<div class="rightfoot part"><div></div></div>
+</div>
+
 {% endblock %}

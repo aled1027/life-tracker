@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from activity.models import *
 from activity.forms import *
-from chartit import DataPool, Chart
 
 
 def activityHomeView(request):
@@ -244,183 +243,53 @@ def activityInstanceEditView(request, a_id, aI_id):
 				i=i+1
 		return render(request, "activityInstance_form.html", {"form": form, "rForms": rForms, "activity": activity})
 
-def chartsView(request):
- #Step 1: Create a DataPool with the data we want to retrieve.
-     data = \
-         DataPool(
-             series=
-                 [{'options': {
-                     'source': ActivityInstance.objects.all()},
-                     'terms': [
-						 'length_hours',
-						 'duration']}
-				])
-
-     #step 2: Create the Chart object
-     cht = Chart(
-         datasource = data,
-         series_options =
-             [{'options':{
-                 'type': 'line',
-                 'stacking': False},
-             'terms':{
-				 'length_hours' : [
-					'duration']
-			 }}],
-         chart_options =
-             {'title': {
-                 'text': 'Weather Data of Boston and Houston'},
-                 'xAxis': {
-                     'title': {
-                         'text': 'duration'}}})
-     #Step 3: Send the chart object to the template.
-     return render(request, "chart.html", {'chart': cht})
-
-def showStaticImage(request):
-	""" Simply return a static image as a png """
-	imagePath = "/home/alex/Pictures/pic2.png"
-	from PIL import Image
-	Image.init()
-	i = Image.open(imagePath)
-	response = HttpResponse(mimetype='image/png')
-	i.save(response,'PNG')
-	return response
-
-def showDynamicImage(request, a_id):
-	import matplotlib.pyplot as plt
-	import numpy as np
-	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-	from matplotlib.figure import Figure
-	from matplotlib.dates import DateFormatter, date2num, AutoDateFormatter
-
-	a = get_object_or_404(Activity, pk=a_id)
-	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
-	durations = [aI.duration for aI in aIs]
-	startTimes = [aI.startTime for aI in aIs]
-
-	x = startTimes
-	y = durations
-
-	fig, ax = plt.subplots()
-	s = datetime.now()
-	ax.plot_date(x, y, '-') #'-' signifies line graph
-	#ax.fmt_xdata = DateFormatter('%Y-%m-%d')
-	ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #https://github.com/matplotlib/matplotlib/issues/2205 # uses strftime
-	# change to 24 hour time - replace %I
-	fig.autofmt_xdate()
-
-
-	plt.title('X verse Y for %s' % a.name)
-	ax.set_xlabel('xlabel')
-	ax.set_ylabel('ylabel')
-	plt.rc('font', size=8)
-
-	canvas = FigureCanvas(plt.figure(1))
-	response = HttpResponse(content_type='image/png')
-	canvas.print_png(response)
-	return response
-
-# http://stackoverflow.com/questions/17987468/custom-date-range-x-axis-in-time-series-with-matplotlib
-
-def oldChartView(request, a_id, xaxis, yaxis):
-	# capital letters matter for query of rateActivity
-
-	# TODO:
-	# 1. fix names for axis and title labels
-	# 2. Add units?
-	import matplotlib.pyplot as plt
-	import numpy as np
-	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-	from matplotlib.figure import Figure
-	from matplotlib.dates import DateFormatter, date2num, AutoDateFormatter
-
-	a = get_object_or_404(Activity, pk=a_id)
-	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
-
-	try:
-		# check if axis is a core value of an activity instance
-		x = [getattr(aI, xaxis) for aI in aIs]
-	except:
-		# if above failed, the value is part of Rate Activity
-		try:
-			rA = get_object_or_404(RateActivity, name=xaxis)
-			x = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
-		except:
-			raise Http404
-	try:
-		y = [getattr(aI, yaxis) for aI in aIs]
-	except:
-		try:
-			rA = get_object_or_404(RateActivity, name=yaxis)
-			y = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
-		except:
-			raise Http404
-
-	fig, ax = plt.subplots()
-	s = datetime.now()
-	if ('endTime' in xaxis) or ('startTime' in xaxis):
-		ax.plot_date(x, y, '-') #'-' signifies line graph
-		ax.xaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') ) #uses strftime
-		fig.autofmt_xdate()
-	else:
-		ax.plot(x,y,'-')
-
-	if ('endTime' in yaxis or 'startTime' in yaxis):
-		ax.yaxis.set_major_formatter( DateFormatter('%m-%d %H:%M') )
-
-	# fix these names
-	xaxisName = xaxis
-	yaxisName = yaxis
-	plt.title('%s verse %s for %s' % (xaxisName, yaxisName, a.name))
-	ax.set_xlabel(xaxisName)
-	ax.set_ylabel(yaxisName)
-	plt.rc('font', size=8)
-
-	canvas = FigureCanvas(plt.figure(1))
-	response = HttpResponse(content_type='image/png')
-	canvas.print_png(response)
-	return response
-
 def chartView(request, a_id, xaxis, yaxis):
 	#from django.utils import simplejson
 	import simplejson as simplejson
-	args = {}
+
 	# get data
 	a = get_object_or_404(Activity, pk=a_id)
 	aIs = ActivityInstance.objects.filter(activity=a).order_by('startTime')
-
 	try:
 		# check if axis is a core value of an activity instance
-		xs = [getattr(aI, xaxis) for aI in aIs]
+		xs = [[getattr(aI, xaxis), aI.startTime] for aI in aIs]
 	except:
 		# if above failed, the value is part of a Rate Activity
 		try:
 			rA = get_object_or_404(RateActivity, name=xaxis)
-			xs = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
+			xs = [[rAI.rating, rAI.activityInstance.startTime] for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
 		except:
 			raise Http404
 	try:
-		ys = [getattr(aI, yaxis) for aI in aIs]
+		ys = [[getattr(aI, yaxis), aI.startTime] for aI in aIs]
 	except:
 		# if above failed, the value is part of a Rate Activity
 		try:
 			rA = get_object_or_404(RateActivity, name=yaxis)
-			ys = [rAI.rating for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
+			ys = [[rAI.rating, rAI.activityInstance.startTime] for rAI in RateActivityInstance.objects.filter(rateActivity=rA)]
 		except:
 			raise Http404
 	#make data points
-	data = []
-	# need to ensure that x and y are same size..
-	for x,y in zip(xs,ys):
-		data.append([x,y])
-
-	#js_data = simplejson.dumps({"data_points": data})
+	if len(xs) == len(ys):
+		print xs
+		print ys
+		data = [(x[0],y[0]) for x,y in zip(xs,ys)]
+	else:
+		data = []
+		i = 0
+		y = ys[i]
+		for x in xs:
+			while x[1]!=y[1] and i<len(ys)-1:
+				i=i+1
+				y = ys[i]
+			data.append((x[0], y[0]))
+		print data
 
 	return render(request, "chart.html", {"js_data": data})
 
 def chartFormView(request, a_id):
 	if request.method == 'POST':
-		form = MyForm(None, request.POST)
+		form = ChartForm(None, request.POST)
 		if form.is_valid():
 			form.data['xaxis']
 			return HttpResponseRedirect(reverse('chart', args=(1,form.data['xaxis'], form.data['yaxis'])))
@@ -429,14 +298,11 @@ def chartFormView(request, a_id):
 			return HttpResponseRedirect(reverse('home'))
 	else:
 		activity = get_object_or_404(Activity, pk=a_id)
-		choices = []
-		for rA in RateActivity.objects.filter(activity=activity):
-			choices.append((rA.name, rA.name))
+		choices = [(rA.name, rA.name) for rA in RateActivity.objects.filter(activity=activity)]
 		choices.append(('startTime', 'Start Time'))
 		choices.append(('endTime', 'End Time'))
 		choices.append(('duration', 'Duration'))
-		xaxis = tuple(choices)
-		form = MyForm(choices=[xaxis, xaxis])
+		form = ChartForm(choices=[tuple(choices), tuple(choices)])
 		return render(request, "form.html", {'form': form})
 
 def searchActivitiesView(request):
@@ -446,3 +312,4 @@ def searchActivitiesView(request):
 		search_text = ''
 	activities = Activity.objects.filter(name__contains=search_text)
 	return render(request, 'ajax_search.html', {'activities': activities})
+
